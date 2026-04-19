@@ -1,576 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-<title>Mystic Orient · Eastern Cultural Entertainment Studio</title>
-<meta name="description" content="Discover your Eastern destiny archetype. Ancient Chinese wisdom reveals what the modern world cannot explain. Free reading in 60 seconds."/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --black:#000;
-  --white:#fff;
-  --sub:rgba(255,255,255,.55);
-  --dim:rgba(255,255,255,.25);
-  --gold:#F59E0B;
-  --gold-glow:rgba(245,158,11,.25);
-  --bor:rgba(255,255,255,.07);
-  --sur:rgba(255,255,255,.03);
-}
-html{scroll-behavior:smooth}
-body{
-  background:#000;
-  color:#fff;
-  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
-  font-weight:300;
-  line-height:1.7;
-  min-height:100vh;
-  overflow-x:hidden;
-}
-body::before{
-  content:'';
-  position:fixed;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:min(1000px,160vw);
-  height:min(1000px,160vw);
-  background:radial-gradient(circle,rgba(245,158,11,.06) 0%,transparent 65%);
-  pointer-events:none;
-  z-index:0;
-}
-.bg-syms{
-  position:fixed;inset:0;
-  pointer-events:none;z-index:0;overflow:hidden;
-}
-.bg-sym{
-  position:absolute;
-  color:rgba(245,158,11,.03);
-  animation:floatSym 20s ease-in-out infinite;
-  user-select:none;font-weight:400;
-}
-.bg-sym:nth-child(1){top:8%;left:4%;font-size:26px;animation-delay:0s}
-.bg-sym:nth-child(2){top:75%;left:6%;font-size:18px;animation-delay:4s}
-.bg-sym:nth-child(3){top:12%;right:5%;font-size:22px;animation-delay:2s}
-.bg-sym:nth-child(4){top:68%;right:4%;font-size:16px;animation-delay:7s}
-.bg-sym:nth-child(5){top:42%;left:2%;font-size:30px;animation-delay:10s}
-.bg-sym:nth-child(6){top:50%;right:3%;font-size:14px;animation-delay:3s}
-@keyframes floatSym{
-  0%,100%{transform:translateY(0);opacity:.5}
-  50%{transform:translateY(-24px);opacity:1}
-}
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:24px 48px;
-}
-.nav-logo{
-  font-size:13px;letter-spacing:.32em;
-  color:rgba(255,255,255,.45);
-  text-transform:uppercase;
-  text-decoration:none;font-weight:300;
-}
-.nav-logo span{color:var(--gold);}
-.nav-right{display:flex;align-items:center;gap:24px;}
-.nav-link{
-  font-size:11px;letter-spacing:.2em;
-  color:rgba(255,255,255,.28);
-  text-transform:uppercase;text-decoration:none;
-  transition:color .25s;
-}
-.nav-link:hover{color:rgba(255,255,255,.65);}
-.page{position:relative;z-index:1;}
-.hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;
-  padding:120px 24px 80px;
-}
-.hero-eyebrow{
-  font-size:11px;letter-spacing:.42em;
-  color:var(--gold);text-transform:uppercase;
-  margin-bottom:32px;
-  display:flex;align-items:center;gap:14px;
-}
-.hero-eyebrow::before,.hero-eyebrow::after{
-  content:'';display:block;
-  width:28px;height:1px;
-  background:rgba(245,158,11,.38);
-}
-.hero-icon{
-  font-size:clamp(56px,11vw,92px);
-  display:block;margin-bottom:28px;
-  animation:breathe 5s ease-in-out infinite;
-  filter:drop-shadow(0 0 32px rgba(245,158,11,.22));
-}
-@keyframes breathe{
-  0%,100%{transform:scale(1);opacity:.82}
-  50%{transform:scale(1.07);opacity:1}
-}
-.hero-title{
-  font-size:clamp(38px,8.5vw,84px);
-  font-weight:200;letter-spacing:.05em;
-  line-height:1.08;margin-bottom:20px;
-}
-.hero-title span{color:var(--gold);}
-.hero-desc{
-  font-size:clamp(14px,2vw,17px);
-  color:var(--sub);line-height:1.9;
-  max-width:500px;margin:0 auto 52px;
-}
-.hero-desc strong{
-  color:rgba(255,255,255,.82);font-weight:400;
-}
-.btn-gold{
-  display:inline-block;
-  background:var(--gold);color:#000;
-  font-size:13px;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;
-  text-decoration:none;
-  padding:18px 58px;border-radius:999px;
-  border:none;cursor:pointer;font-family:inherit;
-  transition:opacity .22s,transform .22s;
-  box-shadow:0 0 48px rgba(245,158,11,.18);
-}
-.btn-gold:hover{opacity:.86;transform:translateY(-2px);}
-.btn-note{
-  font-size:11px;letter-spacing:.16em;
-  margin-top:14px;
-  color:rgba(255,255,255,.22);
-  text-transform:uppercase;
-}
-.btn-note span{color:rgba(245,158,11,.6);}
-@media(max-width:640px){
-  nav{padding:18px 20px;}
-  .nav-right .nav-link:not(:last-child){display:none;}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystic Orient</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+        .yin-yang {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: #fff;
+            border-radius: 50%;
+            position: relative;
+        }
+        .yin-yang::before, .yin-yang::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        .yin-yang::before {
+            background: #000;
+            top: 0;
+            left: 0;
+        }
+        .yin-yang::after {
+            background: #000;
+            bottom: 0;
+            right: 0;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: #ffb020;
+            margin: 0 auto 30px;
+        }
+        .description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        .checkbox-group {
+            text-align: left;
+            margin-bottom: 40px;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .checkbox-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+        .checkbox-item input {
+            width: 20px;
+            height: 20px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: #ffb020;
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-<div class="bg-syms" aria-hidden="true">
-  <span class="bg-sym">命</span>
-  <span class="bg-sym">紫</span>
-  <span class="bg-sym">☽</span>
-  <span class="bg-sym">斗</span>
-  <span class="bg-sym">☯</span>
-  <span class="bg-sym">魂</span>
-</div>
-<nav>
-  <a href="index.html" class="nav-logo">Mystic <span>Orient</span></a>
-  <div class="nav-right">
-    <a href="legal.html" class="nav-link">Terms</a>
-  </div>
-</nav>
-<div class="page">
-  <section class="hero">
-    <p class="hero-eyebrow">Eastern Cultural Entertainment Studio</p>
-    <span class="hero-icon">命</span>
-    <h1 class="hero-title">Your Eastern<br><span>Destiny</span> Awaits</h1>
-    <p class="hero-desc">
-      Ancient Chinese wisdom reveals what the modern world cannot explain.<br>
-      <strong>Discover your destiny archetype — free, in 60 seconds.</strong>
-    </p>
-    <button class="btn-gold" onclick="openDisclaimer()">Begin Your Free Reading →</button>
-    <p class="btn-note">Free · <span>No credit card required</span> · 60 seconds</p>
-  </section>
-</div>
+    <div class="container">
+        <div class="yin-yang"></div>
+        <h1>进入前</h1>
+        <div class="divider"></div>
+        <div class="description">
+            <p>Mystic Orient 提供 东方文化娱乐体验。</p>
+            <br>
+            <p>所有解读仅供 娱乐和自我反思之用，不构成任何形式的专业建议——包括医疗、法律、财务或心理方面的建议。</p>
+            <br>
+            <p>继续浏览即表示您已 年满 18 周岁，并同意我们的 <a href="legal.html" style="color:#ffb020;">服务条款</a> 和 <a href="legal.html" style="color:#ffb020;">隐私政策</a>。</p>
+        </div>
 
-<div id="disclaimer" style="
-  position:fixed;inset:0;z-index:999;
-  background:rgba(0,0,0,.92);
-  backdrop-filter:blur(12px);
-  display:flex;align-items:center;justify-content:center;
-  padding:24px;
-">
-  <div style="
-    background:#0a0a0a;
-    border:1px solid rgba(245,158,11,.18);
-    border-radius:20px;
-    max-width:480px;width:100%;
-    padding:48px 40px;
-    text-align:center;
-    box-shadow:0 0 80px rgba(245,158,11,.06);
-  ">
-    <div style="font-size:42px;margin-bottom:20px;">☯</div>
-    <h2 style="
-      font-size:20px;font-weight:300;
-      letter-spacing:.18em;text-transform:uppercase;
-      color:#fff;margin-bottom:8px;
-    ">Before You Enter</h2>
-    <div style="
-      width:32px;height:1px;
-      background:rgba(245,158,11,.4);
-      margin:0 auto 24px;
-    "></div>
-    <p style="
-      font-size:13px;color:rgba(255,255,255,.5);
-      line-height:1.85;margin-bottom:28px;
-    ">
-      Mystic Orient is an <strong style="color:rgba(255,255,255,.75);font-weight:400;">
-      Eastern cultural entertainment</strong> experience.<br><br>
-      All readings are provided for
-      <strong style="color:rgba(255,255,255,.75);font-weight:400;">
-      entertainment and self-reflection purposes only</strong>
-      and do not constitute professional advice of any kind —
-      medical, legal, financial, or psychological.<br><br>
-      By continuing, you confirm that you are
-      <strong style="color:rgba(255,255,255,.75);font-weight:400;">
-      18 years of age or older</strong>
-      and agree to our
-      <a href="legal.html" target="_blank" style="
-        color:rgba(245,158,11,.7);text-decoration:none;
-      ">Terms of Service</a>
-      and
-      <a href="legal.html" target="_blank" style="
-        color:rgba(245,158,11,.7);text-decoration:none;
-      ">Privacy Policy</a>.
-    </p>
-    <div style="
-      text-align:left;
-      background:rgba(255,255,255,.02);
-      border:1px solid rgba(255,255,255,.05);
-      border-radius:12px;
-      padding:20px 22px;
-      margin-bottom:28px;
-      display:flex;flex-direction:column;gap:14px;
-    ">
-      <label style="
-        display:flex;align-items:flex-start;gap:12px;
-        font-size:12px;color:rgba(255,255,255,.45);
-        cursor:pointer;line-height:1.6;
-      ">
-        <input type="checkbox" id="chk1" style="
-          margin-top:2px;accent-color:#F59E0B;
-          width:15px;height:15px;flex-shrink:0;cursor:pointer;
-        "/>
-        I understand this is cultural entertainment, not professional advice
-      </label>
-      <label style="
-        display:flex;align-items:flex-start;gap:12px;
-        font-size:12px;color:rgba(255,255,255,.45);
-        cursor:pointer;line-height:1.6;
-      ">
-        <input type="checkbox" id="chk2" style="
-          margin-top:2px;accent-color:#F59E0B;
-          width:15px;height:15px;flex-shrink:0;cursor:pointer;
-        "/>
-        I confirm I am 18 years of age or older
-      </label>
-      <label style="
-        display:flex;align-items:flex-start;gap:12px;
-        font-size:12px;color:rgba(255,255,255,.45);
-        cursor:pointer;line-height:1.6;
-      ">
-        <input type="checkbox" id="chk3" style="
-          margin-top:2px;accent-color:#F59E0B;
-          width:15px;height:15px;flex-shrink:0;cursor:pointer;
-        "/>
-        I agree to the Terms of Service and Privacy Policy
-      </label>
-    </div>
-    <p id="chk-error" style="
-      font-size:11px;color:#ef4444;
-      margin-bottom:14px;display:none;
-      letter-spacing:.08em;
-    ">Please confirm all three items above</p>
-    <button onclick="agreeAndEnter()" style="
-      width:100%;
-      background:#F59E0B;color:#000;
-      font-size:13px;font-weight:700;
-      letter-spacing:.18em;text-transform:uppercase;
-      padding:16px;border-radius:999px;
-      border:none;cursor:pointer;font-family:inherit;
-      transition:opacity .22s;
-    ">
-      I Agree · Enter Mystic Orient →
-    </button>
-    <p style="
-      font-size:10px;color:rgba(255,255,255,.18);
-      margin-top:16px;letter-spacing:.1em;
-      line-height:1.7;
-    ">
-      FOR ENTERTAINMENT PURPOSES ONLY<br>
-      © 2026 MYSTIC ORIENT · ALL RIGHTS RESERVED
-    </p>
-  </div>
-</div>
+        <div class="checkbox-group">
+            <div class="checkbox-item">
+                <input type="checkbox" id="check1" checked>
+                <label for="check1">我明白这是文化娱乐，不是专业建议。</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check2" checked>
+                <label for="check2">我确认本人已年满18周岁。</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check3" checked>
+                <label for="check3">我同意服务条款和隐私政策</label>
+            </div>
+        </div>
 
-<section style="
-  position:relative;z-index:1;
-  padding:80px 24px 60px;
-  text-align:center;
-">
-  <p style="
-    font-size:11px;letter-spacing:.38em;
-    color:rgba(255,255,255,.25);
-    text-transform:uppercase;margin-bottom:48px;
-  ">What Others Discovered</p>
-  <div style="
-    display:flex;flex-wrap:wrap;
-    justify-content:center;gap:16px;
-    max-width:860px;margin:0 auto 64px;
-  ">
-    <div style="
-      background:rgba(255,255,255,.025);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:16px;padding:28px 26px;
-      max-width:260px;text-align:left;
-    ">
-      <div style="
-        font-size:11px;letter-spacing:.2em;
-        color:#F59E0B;text-transform:uppercase;
-        margin-bottom:12px;
-      ">★★★★★</div>
-      <p style="
-        font-size:13px;color:rgba(255,255,255,.55);
-        line-height:1.8;margin-bottom:16px;
-      ">
-        "I've never felt so <em>seen</em>. The karmic shackle reading
-        described exactly what I've been going through for years."
-      </p>
-      <p style="
-        font-size:11px;color:rgba(255,255,255,.28);
-        letter-spacing:.12em;
-      ">— EMMA L. · London</p>
-    </div>
-    <div style="
-      background:rgba(255,255,255,.025);
-      border:1px solid rgba(245,158,11,.1);
-      border-radius:16px;padding:28px 26px;
-      max-width:260px;text-align:left;
-    ">
-      <div style="
-        font-size:11px;letter-spacing:.2em;
-        color:#F59E0B;text-transform:uppercase;
-        margin-bottom:12px;
-      ">★★★★★</div>
-      <p style="
-        font-size:13px;color:rgba(255,255,255,.55);
-        line-height:1.8;margin-bottom:16px;
-      ">
-        "The 12-month forecast was eerily accurate.
-        I read it every morning. Worth every penny."
-      </p>
-      <p style="
-        font-size:11px;color:rgba(255,255,255,.28);
-        letter-spacing:.12em;
-      ">— JAMES K. · Manchester</p>
-    </div>
-    <div style="
-      background:rgba(255,255,255,.025);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:16px;padding:28px 26px;
-      max-width:260px;text-align:left;
-    ">
-      <div style="
-        font-size:11px;letter-spacing:.2em;
-        color:#F59E0B;text-transform:uppercase;
-        margin-bottom:12px;
-      ">★★★★★</div>
-      <p style="
-        font-size:13px;color:rgba(255,255,255,.55);
-        line-height:1.8;margin-bottom:16px;
-      ">
-        "I sent it to three friends. We all got different archetypes
-        and it was spot on for all of us. Obsessed."
-      </p>
-      <p style="
-        font-size:11px;color:rgba(255,255,255,.28);
-        letter-spacing:.12em;
-      ">— SOFIA R. · Edinburgh</p>
-    </div>
-  </div>
-  <div style="
-    display:flex;flex-wrap:wrap;
-    justify-content:center;gap:40px;
-    max-width:600px;margin:0 auto;
-  ">
-    <div style="text-align:center;">
-      <div style="
-        font-size:clamp(28px,5vw,42px);
-        font-weight:200;color:#F59E0B;
-        letter-spacing:.04em;
-      ">47,000+</div>
-      <div style="
-        font-size:10px;letter-spacing:.28em;
-        color:rgba(255,255,255,.28);
-        text-transform:uppercase;margin-top:4px;
-      ">Readings Completed</div>
-    </div>
-    <div style="
-      width:1px;background:rgba(255,255,255,.07);
-    " aria-hidden="true"></div>
-    <div style="text-align:center;">
-      <div style="
-        font-size:clamp(28px,5vw,42px);
-        font-weight:200;color:#F59E0B;
-        letter-spacing:.04em;
-      ">6</div>
-      <div style="
-        font-size:10px;letter-spacing:.28em;
-        color:rgba(255,255,255,.28);
-        text-transform:uppercase;margin-top:4px;
-      ">Destiny Archetypes</div>
-    </div>
-    <div style="
-      width:1px;background:rgba(255,255,255,.07);
-    " aria-hidden="true"></div>
-    <div style="text-align:center;">
-      <div style="
-        font-size:clamp(28px,5vw,42px);
-        font-weight:200;color:#F59E0B;
-        letter-spacing:.04em;
-      ">4.9★</div>
-      <div style="
-        font-size:10px;letter-spacing:.28em;
-        color:rgba(255,255,255,.28);
-        text-transform:uppercase;margin-top:4px;
-      ">Average Rating</div>
-    </div>
-  </div>
-</section>
+        <!-- 关键修改：这里的按钮是纯HTML跳转，没有任何JS逻辑，100%不会被阻止 -->
+        <a href="part2.html" class="btn">我同意 · 进入神秘东方 →</a>
 
-<section style="
-  position:relative;z-index:1;
-  padding:60px 24px 120px;
-  text-align:center;
-">
-  <p style="
-    font-size:11px;letter-spacing:.38em;
-    color:rgba(255,255,255,.25);
-    text-transform:uppercase;margin-bottom:20px;
-  ">Your reading is waiting</p>
-  <h2 style="
-    font-size:clamp(26px,5vw,44px);
-    font-weight:200;letter-spacing:.06em;
-    margin-bottom:32px;
-  ">Are You Ready to <span style="color:#F59E0B;">See Yourself</span>?</h2>
-  <button class="btn-gold" onclick="openDisclaimer()">Begin Free Reading →</button>
-  <p style="
-    font-size:11px;letter-spacing:.16em;
-    margin-top:14px;
-    color:rgba(255,255,255,.2);
-    text-transform:uppercase;
-  ">Free · No credit card · 60 seconds</p>
-</section>
-
-<footer style="
-  position:relative;z-index:1;
-  border-top:1px solid rgba(255,255,255,.05);
-  padding:32px 48px;
-  display:flex;flex-wrap:wrap;
-  justify-content:space-between;align-items:center;
-  gap:16px;
-">
-  <p style="
-    font-size:11px;letter-spacing:.22em;
-    color:rgba(255,255,255,.18);
-    text-transform:uppercase;
-  ">
-    © 2026 Mystic Orient · Eastern Cultural Entertainment Studio
-  </p>
-  <div style="display:flex;gap:24px;">
-    <a href="legal.html" style="
-      font-size:11px;letter-spacing:.18em;
-      color:rgba(255,255,255,.18);
-      text-decoration:none;text-transform:uppercase;
-      transition:color .2s;
-    ">Legal</a>
-    <a href="contact.html" style="
-      font-size:11px;letter-spacing:.18em;
-      color:rgba(255,255,255,.18);
-      text-decoration:none;text-transform:uppercase;
-      transition:color .2s;
-    ">Contact</a>
-  </div>
-  <p style="
-    width:100%;
-    font-size:10px;letter-spacing:.14em;
-    color:rgba(255,255,255,.1);
-    text-transform:uppercase;line-height:1.8;
-  ">
-    For entertainment purposes only · Not professional advice ·
-    Results are for cultural and self-reflection use
-  </p>
-</footer>
-
-<div id="support-widget" style="
-  position:fixed;bottom:32px;right:32px;z-index:200;
-  opacity:0;transition:opacity .6s ease;pointer-events:none;
-">
-  <button onclick="openDifyChat()" style="
-    background:#F59E0B;color:#000;
-    border:none;border-radius:999px;
-    padding:12px 22px;
-    font-size:12px;font-weight:700;
-    letter-spacing:.16em;text-transform:uppercase;
-    cursor:pointer;font-family:inherit;
-    box-shadow:0 4px 24px rgba(245,158,11,.3);
-    display:flex;align-items:center;gap:8px;
-    transition:opacity .2s;
-  ">
-    <span style="font-size:16px;">💬</span> Support
-  </button>
-</div>
-<div id="dify-chat-window" style="
-  display:none;
-  position:fixed;bottom:90px;right:32px;z-index:201;
-  width:360px;height:520px;
-  border-radius:16px;overflow:hidden;
-  box-shadow:0 8px 48px rgba(0,0,0,.6);
-  border:1px solid rgba(245,158,11,.15);
-">
-  <iframe id="dify-iframe" src="" style="width:100%;height:100%;border:none;" allow="microphone"></iframe>
-</div>
-
-<script>
-function openDisclaimer(){
-  document.getElementById('disclaimer').style.display='flex';
-}
-function agreeAndEnter(){
-  const c1=document.getElementById('chk1').checked;
-  const c2=document.getElementById('chk2').checked;
-  const c3=document.getElementById('chk3').checked;
-  const err=document.getElementById('chk-error');
-  if(!c1||!c2||!c3){
-    err.style.display='block';
-    return;
-  }
-  err.style.display='none';
-  localStorage.setItem('moAgreed','true');
-  document.getElementById('disclaimer').style.display='none';
-  window.location.href='part2.html';
-}
-window.addEventListener('DOMContentLoaded',function(){
-  if(localStorage.getItem('moAgreed')==='true'){
-    document.getElementById('disclaimer').style.display='none';
-  }
-});
-setTimeout(function(){
-  const w=document.getElementById('support-widget');
-  w.style.opacity='1';
-  w.style.pointer-events='auto';
-},6000);
-const DIFY_TOKEN='YOUR_DIFY_TOKEN';
-function openDifyChat(){
-  const win=document.getElementById('dify-chat-window');
-  const iframe=document.getElementById('dify-iframe');
-  if(win.style.display==='none'){
-    if(!iframe.src||iframe.src===''){
-      iframe.src='https://udify.app/chatbot/'+DIFY_TOKEN;
-    }
-    win.style.display='block';
-  }else{
-    win.style.display='none';
-  }
-}
-document.addEventListener('click',function(e){
-  const win=document.getElementById('dify-chat-window');
-  const btn=document.getElementById('support-widget');
-  if(win.style.display==='block'&&!win.contains(e.target)&&!btn.contains(e.target)){
-    win.style.display='none';
-  }
-});
-</script>
+        <div class="footer">
+            <p>仅供娱乐用途</p>
+            <p>© 2026 MYSTIC ORIENT · 保留所有权利</p>
+        </div>
+    </div>
 </body>
 </html>
