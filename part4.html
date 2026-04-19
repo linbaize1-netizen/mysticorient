@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Complete Your Reading · Mystic Orient</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#F59E0B;
+  --gold-dim:rgba(245,158,11,.18);
+  --sub:rgba(255,255,255,.5);
+  --dim:rgba(255,255,255,.22);
+  --bor:rgba(255,255,255,.07);
+  --err:#ef4444;
+}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  font-weight:300;line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:min(900px,150vw);height:min(900px,150vw);
+  background:radial-gradient(circle,rgba(245,158,11,.055) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 48px;
+}
+.nav-logo{
+  font-size:13px;letter-spacing:.32em;
+  color:rgba(255,255,255,.4);
+  text-transform:uppercase;text-decoration:none;font-weight:300;
+}
+.nav-logo span{color:var(--gold);}
+.progress-wrap{
+  position:fixed;top:0;left:0;right:0;z-index:101;
+  height:2px;background:rgba(255,255,255,.05);
+}
+.progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#F59E0B,#FBBF24);
+  transition:width .6s ease;
+}
+.progress-label{
+  position:fixed;top:14px;right:48px;z-index:102;
+  font-size:10px;letter-spacing:.28em;
+  color:rgba(255,255,255,.22);text-transform:uppercase;
+}
+.page{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:100px 24px 80px;
+}
+.card{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:24px;
+  padding:52px 48px;
+  width:100%;max-width:560px;
+  box-shadow:0 0 80px rgba(0,0,0,.4);
+}
+.card-eyebrow{
+  font-size:10px;letter-spacing:.38em;
+  color:var(--gold);text-transform:uppercase;
+  text-align:center;margin-bottom:10px;
+}
+.card-title{
+  font-size:clamp(22px,4vw,30px);
+  font-weight:200;letter-spacing:.06em;
+  text-align:center;margin-bottom:8px;
+}
+.card-title span{color:var(--gold);}
+.card-sub{
+  font-size:13px;color:var(--sub);
+  text-align:center;line-height:1.75;
+  margin-bottom:36px;
+}
+.divider{
+  width:32px;height:1px;
+  background:rgba(245,158,11,.35);
+  margin:0 auto 32px;
+}
+.question{
+  margin-bottom:24px;
+  padding:20px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:16px;
+}
+.question-number{
+  font-size:10px;letter-spacing:.28em;
+  color:rgba(245,158,11,.6);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.question-text{
+  font-size:14px;color:rgba(255,255,255,.65);
+  line-height:1.6;margin-bottom:16px;
+}
+.options{
+  display:flex;flex-direction:column;gap:8px;
+}
+.option-btn{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:12px 16px;
+  color:rgba(255,255,255,.45);
+  font-size:13px;font-family:inherit;
+  cursor:pointer;text-align:left;
+  transition:all .22s;
+}
+.option-btn:hover{
+  border-color:rgba(245,158,11,.3);
+  color:rgba(255,255,255,.7);
+}
+.option-btn.selected{
+  border-color:var(--gold);
+  background:rgba(245,158,11,.08);
+  color:var(--gold);
+}
+.textarea{
+  width:100%;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  padding:14px 16px;
+  color:#fff;font-size:14px;
+  font-family:inherit;font-weight:300;
+  outline:none;resize:vertical;min-height:80px;
+  transition:border-color .22s,background .22s;
+}
+.textarea::placeholder{color:rgba(255,255,255,.2);}
+.textarea:focus{
+  border-color:rgba(245,158,11,.45);
+  background:rgba(245,158,11,.04);
+}
+.btn-next{
+  width:100%;
+  background:var(--gold);color:#000;
+  font-size:13px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:17px;border-radius:999px;
+  border:none;cursor:pointer;font-family:inherit;
+  margin-top:8px;
+  transition:opacity .22s,transform .22s;
+  box-shadow:0 0 40px rgba(245,158,11,.15);
+}
+.btn-next:hover{opacity:.86;transform:translateY(-1px);}
+.btn-next:disabled{
+  opacity:.35;cursor:not-allowed;transform:none;
+}
+#checkout-section{
+  display:none;
+  margin-top:32px;
+  padding-top:32px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.price-banner{
+  background:rgba(245,158,11,.06);
+  border:1px solid rgba(245,158,11,.18);
+  border-radius:16px;padding:20px;
+  text-align:center;margin-bottom:24px;
+}
+.price-original{
+  font-size:16px;color:rgba(255,255,255,.3);
+  text-decoration:line-through;margin-bottom:4px;
+}
+.price-current{
+  font-size:36px;font-weight:200;color:#fff;
+  line-height:1;
+}
+.price-current span{font-size:20px;color:rgba(255,255,255,.5);}
+.countdown{
+  font-size:11px;letter-spacing:.18em;
+  color:rgba(245,158,11,.7);text-transform:uppercase;
+  margin-top:8px;
+}
+.order-summary{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:12px;padding:16px;
+  margin-bottom:24px;
+}
+.order-item{
+  display:flex;justify-content:space-between;
+  font-size:13px;color:rgba(255,255,255,.45);
+  margin-bottom:8px;
+}
+.order-total{
+  display:flex;justify-content:space-between;
+  font-size:14px;color:#fff;font-weight:400;
+  padding-top:8px;border-top:1px solid rgba(255,255,255,.07);
+  margin-top:8px;
+}
+.trust-badges{
+  display:flex;justify-content:center;
+  gap:24px;margin-top:20px;flex-wrap:wrap;
+}
+.trust-badge{
+  font-size:10px;letter-spacing:.18em;
+  color:rgba(255,255,255,.18);
+  text-transform:uppercase;
+  display:flex;align-items:center;gap:6px;
+}
+.trust-badge span{color:rgba(245,158,11,.45);}
+@media(max-width:520px){
+  .card{padding:36px 24px;}
+  nav{padding:18px 20px;}
+  .progress-label{right:20px;}
+}
+</style>
+</head>
+<body>
+<div class="progress-wrap">
+  <div class="progress-fill" id="progress-fill"></div>
+</div>
+<div class="progress-label">Step 3 of 4</div>
+<nav>
+  <a href="part3.html" class="nav-logo">← Back</a>
+</nav>
+<div class="page">
+  <div class="card">
+    <p class="card-eyebrow">Personalise Your Reading</p>
+    <h1 class="card-title">Help Mei <span>Understand You</span></h1>
+    <p class="card-sub">
+      Answer these 5 quick questions to make your destiny report
+      <strong style="color:rgba(255,255,255,.72);">100% personalised</strong>
+      to your unique situation.
+    </p>
+    <div class="divider"></div>
+
+    <div id="questions-form">
+      <div class="question">
+        <div class="question-number">Question 1 of 5</div>
+        <p class="question-text">Which area of your life feels most stuck right now?</p>
+        <div class="options">
+          <button class="option-btn" data-q="q1" data-v="Relationships">Relationships & Love</button>
+          <button class="option-btn" data-q="q1" data-v="Career">Career & Purpose</button>
+          <button class="option-btn" data-q="q1" data-v="Wealth">Wealth & Abundance</button>
+          <button class="option-btn" data-q="q1" data-v="Health">Health & Wellbeing</button>
+          <button class="option-btn" data-q="q1" data-v="Family">Family & Home</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 2 of 5</div>
+        <p class="question-text">What is your biggest fear for the next 3 years?</p>
+        <div class="options">
+          <button class="option-btn" data-q="q2" data-v="Achieving nothing">Wasting my potential and achieving nothing</button>
+          <button class="option-btn" data-q="q2" data-v="Being alone">Ending up alone and lonely</button>
+          <button class="option-btn" data-q="q2" data-v="Financial struggle">Never being financially secure</button>
+          <button class="option-btn" data-q="q2" data-v="Health issues">Developing serious health problems</button>
+          <button class="option-btn" data-q="q2" data-v="Missing out">Missing the chance to live my dream life</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 3 of 5</div>
+        <p class="question-text">Do you ever feel like there is an invisible force holding you back?</p>
+        <div class="options">
+          <button class="option-btn" data-q="q3" data-v="Yes, always">Yes, I feel this constantly</button>
+          <button class="option-btn" data-q="q3" data-v="Sometimes">Sometimes, in certain areas</button>
+          <button class="option-btn" data-q="q3" data-v="Not sure">I'm not sure</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 4 of 5</div>
+        <p class="question-text">What pattern do you find yourself repeating?</p>
+        <div class="options">
+          <button class="option-btn" data-q="q4" data-v="Start but never finish">I always start things but never finish them</button>
+          <button class="option-btn" data-q="q4" data-v="Give more than receive">I always give more than I get back</button>
+          <button class="option-btn" data-q="q4" data-v="Almost succeed">I always get close but never quite succeed</button>
+          <button class="option-btn" data-q="q4" data-v="Wrong people">I always attract the wrong people</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-number">Question 5 of 5</div>
+        <p class="question-text">What is the one thing you most want to change in the next 30 days?</p>
+        <textarea class="textarea" id="q5" placeholder="Be as specific as you like..."></textarea>
+      </div>
+
+      <button class="btn-next" id="btn-continue" onclick="continueToCheckout()">
+        Continue to Checkout →
+      </button>
+    </div>
+
+    <div id="checkout-section">
+      <div class="price-banner">
+        <p class="price-original">Original Price: £24.99</p>
+        <p class="price-current"><span>£</span>9.99</p>
+        <p class="countdown" id="countdown">⏰ Offer expires in: 10:00</p>
+      </div>
+
+      <div class="order-summary">
+        <div class="order-item">
+          <span>Complete Destiny Report</span>
+          <span>£9.99</span>
+        </div>
+        <div class="order-item">
+          <span>Instant Digital Delivery</span>
+          <span>Free</span>
+        </div>
+        <div class="order-item">
+          <span>PDF Download</span>
+          <span>Free</span>
+        </div>
+        <div class="order-total">
+          <span>Total</span>
+          <span>£9.99</span>
+        </div>
+      </div>
+
+      <a id="paypal-btn" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPAZN6DRJNCVA&return=https://mysticorient.net/thank-you.html&cancel_return=https://mysticorient.net/part4.html&no_note=1&no_shipping=1" 
+         class="btn-next" style="display:block;text-align:center;text-decoration:none;">
+        Pay with PayPal →
+      </a>
+
+      <div class="trust-badges">
+        <div class="trust-badge"><span>🔒</span> Secure Payment</div>
+        <div class="trust-badge"><span>✓</span> Instant Access</div>
+        <div class="trust-badge"><span>↩</span> No Subscription</div>
+        <div class="trust-badge"><span>☯</span> 100% Private</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const answers={};
+document.querySelectorAll('.option-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const q=this.dataset.q;
+    const v=this.dataset.v;
+    answers[q]=v;
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(b=>b.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
+
+function continueToCheckout(){
+  if(!answers.q1||!answers.q2||!answers.q3||!answers.q4){
+    alert('Please answer all questions to personalise your report');
+    return;
+  }
+  answers.q5=document.getElementById('q5').value.trim();
+  
+  // Save answers to localStorage
+  const userData=JSON.parse(localStorage.getItem('moUser')||'{}');
+  userData.answers=answers;
+  localStorage.setItem('moUser',JSON.stringify(userData));
+  
+  document.getElementById('questions-form').style.display='none';
+  document.getElementById('checkout-section').style.display='block';
+  startCountdown();
+}
+
+function startCountdown(){
+  const endTime=localStorage.getItem('moCountdownEnd');
+  if(!endTime||Date.now()>parseInt(endTime)){
+    localStorage.setItem('moCountdownEnd', Date.now()+10*60*1000);
+  }
+  
+  const el=document.getElementById('countdown');
+  const timer=setInterval(function(){
+    const remaining=parseInt(localStorage.getItem('moCountdownEnd'))-Date.now();
+    if(remaining<=0){
+      clearInterval(timer);
+      el.textContent='⏰ Offer has expired';
+      document.getElementById('paypal-btn').style.opacity='0.3';
+      document.getElementById('paypal-btn').style.pointerEvents='none';
+      return;
+    }
+    const minutes=Math.floor(remaining/60000);
+    const seconds=Math.floor((remaining%60000)/1000);
+    el.textContent=`⏰ Offer expires in: ${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+  },1000);
+}
+
+window.addEventListener('DOMContentLoaded',function(){
+  if(localStorage.getItem('moAgreed')!=='true'){
+    window.location.href='index.html';
+    return;
+  }
+  setTimeout(function(){
+    document.getElementById('progress-fill').style.width='75%';
+  },300);
+});
+</script>
+
+<div id="support-widget" style="
+  position:fixed;bottom:32px;right:32px;z-index:200;
+  opacity:0;transition:opacity .6s ease;pointer-events:none;
+">
+  <button onclick="openDifyChat()" style="
+    background:#F59E0B;color:#000;
+    border:none;border-radius:999px;
+    padding:12px 22px;
+    font-size:12px;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;
+    cursor:pointer;font-family:inherit;
+    box-shadow:0 4px 24px rgba(245,158,11,.3);
+    display:flex;align-items:center;gap:8px;
+    transition:opacity .2s;
+  ">
+    <span style="font-size:16px;">💬</span> Support
+  </button>
+</div>
+<div id="dify-chat-window" style="
+  display:none;
+  position:fixed;bottom:90px;right:32px;z-index:201;
+  width:360px;height:520px;
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 8px 48px rgba(0,0,0,.6);
+  border:1px solid rgba(245,158,11,.15);
+">
+  <iframe id="dify-iframe" src="" style="width:100%;height:100%;border:none;" allow="microphone"></iframe>
+</div>
+
+<script>
+const DIFY_TOKEN='YOUR_DIFY_TOKEN';
+function openDifyChat(){
+  const win=document.getElementById('dify-chat-window');
+  const iframe=document.getElementById('dify-iframe');
+  if(win.style.display==='none'){
+    if(!iframe.src||iframe.src===''){
+      iframe.src='https://udify.app/chatbot/'+DIFY_TOKEN;
+    }
+    win.style.display='block';
+  }else{
+    win.style.display='none';
+  }
+}
+document.addEventListener('click',function(e){
+  const win=document.getElementById('dify-chat-window');
+  const btn=document.getElementById('support-widget');
+  if(win.style.display==='block'&&!win.contains(e.target)&&!btn.contains(e.target)){
+    win.style.display='none';
+  }
+});
+</script>
+</body>
+</html>

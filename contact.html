@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Contact Us · Mystic Orient</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#F59E0B;
+  --sub:rgba(255,255,255,.5);
+  --dim:rgba(255,255,255,.22);
+  --bor:rgba(255,255,255,.07);
+  --err:#ef4444;
+}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  font-weight:300;line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:min(900px,150vw);height:min(900px,150vw);
+  background:radial-gradient(circle,rgba(245,158,11,.055) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 48px;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.nav-logo{
+  font-size:13px;letter-spacing:.32em;
+  color:rgba(255,255,255,.4);
+  text-transform:uppercase;text-decoration:none;font-weight:300;
+}
+.nav-logo span{color:var(--gold);}
+.page{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:100px 24px 80px;
+}
+.card{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:24px;
+  padding:52px 48px;
+  width:100%;max-width:560px;
+  box-shadow:0 0 80px rgba(0,0,0,.4);
+}
+.card-eyebrow{
+  font-size:10px;letter-spacing:.38em;
+  color:var(--gold);text-transform:uppercase;
+  text-align:center;margin-bottom:10px;
+}
+.card-title{
+  font-size:clamp(22px,4vw,30px);
+  font-weight:200;letter-spacing:.06em;
+  text-align:center;margin-bottom:8px;
+}
+.card-title span{color:var(--gold);}
+.card-sub{
+  font-size:13px;color:var(--sub);
+  text-align:center;line-height:1.75;
+  margin-bottom:36px;
+}
+.divider{
+  width:32px;height:1px;
+  background:rgba(245,158,11,.35);
+  margin:0 auto 32px;
+}
+.contact-methods{
+  display:flex;flex-direction:column;gap:16px;
+  margin-bottom:32px;
+}
+.contact-method{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:16px;padding:20px;
+}
+.contact-method-title{
+  font-size:12px;letter-spacing:.18em;
+  color:rgba(245,158,11,.6);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.contact-method-value{
+  font-size:14px;color:rgba(255,255,255,.55);
+}
+.faq{
+  margin-bottom:32px;
+}
+.faq-item{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:12px;padding:16px 20px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:all .22s;
+}
+.faq-item:hover{
+  border-color:rgba(245,158,11,.2);
+}
+.faq-question{
+  font-size:14px;color:rgba(255,255,255,.65);
+  font-weight:400;
+  display:flex;justify-content:space-between;
+  align-items:center;
+}
+.faq-answer{
+  display:none;
+  font-size:13px;color:rgba(255,255,255,.45);
+  line-height:1.7;margin-top:12px;
+  padding-top:12px;border-top:1px solid rgba(255,255,255,.05);
+}
+.faq-item.active .faq-answer{
+  display:block;
+}
+.field{margin-bottom:20px;}
+.field label{
+  display:block;
+  font-size:11px;letter-spacing:.22em;
+  color:rgba(255,255,255,.35);
+  text-transform:uppercase;margin-bottom:8px;
+}
+.field input,.field textarea{
+  width:100%;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  padding:14px 16px;
+  color:#fff;font-size:14px;
+  font-family:inherit;font-weight:300;
+  outline:none;
+  transition:border-color .22s,background .22s;
+}
+.field input::placeholder,.field textarea::placeholder{
+  color:rgba(255,255,255,.2);
+}
+.field input:focus,.field textarea:focus{
+  border-color:rgba(245,158,11,.45);
+  background:rgba(245,158,11,.04);
+}
+.field textarea{
+  resize:vertical;min-height:120px;
+}
+.btn-submit{
+  width:100%;
+  background:var(--gold);color:#000;
+  font-size:13px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:17px;border-radius:999px;
+  border:none;cursor:pointer;font-family:inherit;
+  margin-top:8px;
+  transition:opacity .22s,transform .22s;
+  box-shadow:0 0 40px rgba(245,158,11,.15);
+}
+.btn-submit:hover{opacity:.86;transform:translateY(-1px);}
+.success-message{
+  display:none;
+  background:rgba(16,185,129,.06);
+  border:1px solid rgba(16,185,129,.18);
+  border-radius:12px;padding:20px;
+  text-align:center;margin-top:24px;
+}
+.success-message p{
+  font-size:14px;color:rgba(16,185,129,.75);
+  margin:0;
+  line-height:1.7;
+}
+@media(max-width:520px){
+  .card{padding:36px 24px;}
+  nav{padding:18px 20px;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">← Mystic <span>Orient</span></a>
+</nav>
+<div class="page">
+  <div class="card">
+    <p class="card-eyebrow">Get in Touch</p>
+    <h1 class="card-title">Contact <span>Us</span></h1>
+    <p class="card-sub">
+      We're here to help with any questions or issues you may have.
+      We aim to respond to all inquiries within 24 hours.
+    </p>
+    <div class="divider"></div>
+
+    <div class="contact-methods">
+      <div class="contact-method">
+        <div class="contact-method-title">Email Support</div>
+        <div class="contact-method-value">davidlin2077@gmail.com</div>
+      </div>
+      <div class="contact-method">
+        <div class="contact-method-title">Response Time</div>
+        <div class="contact-method-value">24 hours (Monday-Friday)</div>
+      </div>
+    </div>
+
+    <div class="faq">
+      <h3 style="
+        font-size:12px;letter-spacing:.28em;
+        color:rgba(255,255,255,.3);text-transform:uppercase;
+        margin-bottom:16px;
+      ">Frequently Asked Questions</h3>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>I didn't receive my report. What should I do?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          First, check your spam or promotions folder. If you still can't find it, 
+          email us with your order number and the email address you used to purchase, 
+          and we will resend your report immediately.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Can I get a refund?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Due to the nature of digital products, all sales are final. 
+          However, if you experience genuine technical issues preventing 
+          you from accessing your report, please contact us and we will 
+          resolve the issue as quickly as possible.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Are my payments secure?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Yes, all payments are processed securely through PayPal. 
+          We do not store any credit card information on our servers.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Can I share my report with others?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Your report is for your personal use only. You may share 
+          snippets with friends, but please do not distribute the 
+          full report publicly or resell it.
+        </div>
+      </div>
+    </div>
+
+    <form id="contact-form" novalidate>
+      <div class="field">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Your name" required/>
+      </div>
+      <div class="field">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" placeholder="your@email.com" required/>
+      </div>
+      <div class="field">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" placeholder="What is this regarding?" required/>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Please describe your issue in detail..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Send Message →</button>
+    </form>
+
+    <div class="success-message" id="success-message">
+      <p>✅ Your message has been prepared!<br>
+      Your email client will open automatically.<br>
+      If it doesn't, please send an email to<br>
+      <strong>davidlin2077@gmail.com</strong></p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.addEventListener('click',function(){
+    this.classList.toggle('active');
+    const icon=this.querySelector('.faq-question span:last-child');
+    icon.textContent=this.classList.contains('active')?'−':'+';
+  });
+});
+
+document.getElementById('contact-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const subject=document.getElementById('subject').value.trim();
+  const message=document.getElementById('message').value.trim();
+  
+  if(!name||!email||!subject||!message){
+    alert('Please fill in all fields');
+    return;
+  }
+  
+  // Create mailto link
+  const mailto=`mailto:davidlin2077@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+  window.location.href=mailto;
+  
+  document.getElementById('contact-form').style.display='none';
+  document.getElementById('success-message').style.display='block';
+});
+</script>
+</body>
+</html>

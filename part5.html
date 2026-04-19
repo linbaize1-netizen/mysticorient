@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Your Complete Destiny Report · Mystic Orient</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#F59E0B;
+  --gold-dim:rgba(245,158,11,.18);
+  --sub:rgba(255,255,255,.5);
+  --dim:rgba(255,255,255,.22);
+  --bor:rgba(255,255,255,.07);
+}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  font-weight:300;line-height:1.8;
+  min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:min(1200px,180vw);height:min(1200px,180vw);
+  background:radial-gradient(circle,rgba(245,158,11,.045) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 48px;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.nav-logo{
+  font-size:13px;letter-spacing:.32em;
+  color:rgba(255,255,255,.4);
+  text-transform:uppercase;text-decoration:none;font-weight:300;
+}
+.nav-logo span{color:var(--gold);}
+.nav-actions{
+  display:flex;align-items:center;gap:16px;
+}
+.btn-pdf{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5);
+  font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;padding:8px 16px;
+  border-radius:999px;text-decoration:none;
+  transition:all .22s;
+}
+.btn-pdf:hover{
+  border-color:rgba(245,158,11,.3);
+  color:var(--gold);
+}
+.progress-wrap{
+  position:fixed;top:0;left:0;right:0;z-index:101;
+  height:2px;background:rgba(255,255,255,.05);
+}
+.progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#F59E0B,#FBBF24);
+  transition:width .6s ease;
+}
+.progress-label{
+  position:fixed;top:14px;right:48px;z-index:102;
+  font-size:10px;letter-spacing:.28em;
+  color:rgba(255,255,255,.22);text-transform:uppercase;
+}
+.scroll-progress{
+  position:fixed;top:0;left:0;right:0;z-index:102;
+  height:2px;background:var(--gold);
+  transform-origin:left;
+  transform:scaleX(0);
+  transition:transform .1s linear;
+}
+.page{
+  position:relative;z-index:1;
+  max-width:720px;margin:0 auto;
+  padding:120px 24px 100px;
+}
+.report-header{
+  text-align:center;
+  margin-bottom:60px;
+  padding-bottom:40px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.report-eyebrow{
+  font-size:10px;letter-spacing:.42em;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:20px;
+}
+.report-title{
+  font-size:clamp(28px,6vw,48px);
+  font-weight:200;letter-spacing:.06em;
+  margin-bottom:12px;
+}
+.report-title span{color:var(--gold);}
+.report-subtitle{
+  font-size:14px;color:var(--sub);
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.report-date{
+  font-size:11px;color:rgba(255,255,255,.25);
+  margin-top:16px;
+}
+.chapter{
+  margin-bottom:60px;
+  padding-bottom:40px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.chapter:last-child{
+  border-bottom:none;
+  margin-bottom:0;
+  padding-bottom:0;
+}
+.chapter-number{
+  font-size:10px;letter-spacing:.38em;
+  color:rgba(245,158,11,.6);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.chapter-title{
+  font-size:clamp(20px,4vw,28px);
+  font-weight:300;letter-spacing:.06em;
+  margin-bottom:24px;
+}
+.chapter-content{
+  font-size:15px;color:rgba(255,255,255,.55);
+  line-height:1.9;
+}
+.chapter-content p{margin-bottom:16px;}
+.chapter-content strong{
+  color:rgba(255,255,255,.75);font-weight:400;
+}
+.highlight-box{
+  background:rgba(245,158,11,.05);
+  border-left:3px solid var(--gold);
+  padding:20px 24px;
+  margin:24px 0;
+  border-radius:0 12px 12px 0;
+}
+.highlight-box p{margin:0;}
+.ritual-list{
+  list-style:none;
+  margin:20px 0;
+  padding:0;
+}
+.ritual-list li{
+  position:relative;
+  padding-left:28px;
+  margin-bottom:12px;
+  font-size:14px;color:rgba(255,255,255,.5);
+}
+.ritual-list li::before{
+  content:'✦';
+  position:absolute;left:0;top:0;
+  color:var(--gold);font-size:12px;
+}
+.forecast-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:24px 0;
+}
+.forecast-month{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:12px;padding:16px;
+  text-align:center;
+}
+.forecast-month.peak{
+  border-color:rgba(245,158,11,.25);
+  background:rgba(245,158,11,.03);
+}
+.forecast-month.challenge{
+  border-color:rgba(239,68,68,.2);
+  background:rgba(239,68,68,.02);
+}
+.forecast-name{
+  font-size:11px;letter-spacing:.18em;
+  color:rgba(255,255,255,.3);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.forecast-icon{
+  font-size:20px;margin-bottom:8px;
+}
+.forecast-desc{
+  font-size:12px;color:rgba(255,255,255,.45);
+  line-height:1.5;
+}
+.compatibility-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:24px 0;
+}
+.compat-item{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:16px;padding:20px;
+}
+.compat-item.good{
+  border-color:rgba(16,185,129,.2);
+  background:rgba(16,185,129,.02);
+}
+.compat-item.bad{
+  border-color:rgba(239,68,68,.2);
+  background:rgba(239,68,68,.02);
+}
+.compat-title{
+  font-size:11px;letter-spacing:.18em;
+  color:rgba(255,255,255,.3);text-transform:uppercase;
+  margin-bottom:12px;
+}
+.compat-name{
+  font-size:16px;color:#fff;font-weight:400;
+  margin-bottom:8px;
+}
+.compat-desc{
+  font-size:13px;color:rgba(255,255,255,.45);
+  line-height:1.6;
+}
+.wealth-timeline{
+  position:relative;
+  margin:32px 0;
+  padding-left:24px;
+  border-left:2px solid rgba(245,158,11,.2);
+}
+.timeline-item{
+  position:relative;
+  margin-bottom:24px;
+}
+.timeline-item::before{
+  content:'';
+  position:absolute;left:-28px;top:6px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);
+}
+.timeline-date{
+  font-size:11px;letter-spacing:.18em;
+  color:rgba(245,158,11,.6);text-transform:uppercase;
+  margin-bottom:4px;
+}
+.timeline-desc{
+  font-size:14px;color:rgba(255,255,255,.5);
+}
+.practice-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  margin:24px 0;
+}
+.practice-card{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:16px;padding:20px;
+}
+.practice-title{
+  font-size:11px;letter-spacing:.18em;
+  color:rgba(255,255,255,.3);text-transform:uppercase;
+  margin-bottom:12px;
+}
+.practice-content{
+  font-size:13px;color:rgba(255,255,255,.45);
+  line-height:1.6;
+}
+.closing{
+  text-align:center;
+  margin-top:60px;
+  padding-top:40px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.closing-signature{
+  font-size:24px;font-family:cursive;
+  color:var(--gold);margin-bottom:8px;
+}
+.closing-name{
+  font-size:13px;letter-spacing:.2em;
+  color:rgba(255,255,255,.4);text-transform:uppercase;
+}
+@media(max-width:640px){
+  nav{padding:18px 20px;}
+  .progress-label{right:20px;}
+  .forecast-grid{grid-template-columns:repeat(2,1fr);}
+  .compatibility-card{grid-template-columns:1fr;}
+  .practice-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="progress-wrap">
+  <div class="progress-fill" id="progress-fill"></div>
+</div>
+<div class="progress-label">Step 4 of 4</div>
+<div class="scroll-progress" id="scroll-progress"></div>
+<nav>
+  <a href="thank-you.html" class="nav-logo">← Back</a>
+  <div class="nav-actions">
+    <button class="btn-pdf" onclick="downloadPDF()">Download PDF</button>
+  </div>
+</nav>
+<div class="page">
+  <div class="report-header">
+    <p class="report-eyebrow">Complete Destiny Report</p>
+    <h1 class="report-title"><span id="user-name">Sarah</span>'s<br>Eastern Destiny</h1>
+    <p class="report-subtitle" id="archetype-name">The Lone Star Emperor</p>
+    <p class="report-date">Generated on: <span id="report-date"></span></p>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-number">Chapter 1</div>
+    <h2 class="chapter-title">Your Complete Destiny Profile</h2>
+    <div class="chapter-content" id="chapter1">
+      <p>Loading your destiny profile...</p>
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-number">Chapter 2</div>
+    <h2 class="chapter-title">Your Karmic Shackle</h2>
+    <div class="chapter-content" id="chapter2">
+      <p>Loading your karmic analysis...</p>
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-number">Chapter 3</div>
+    <h2 class="chapter-title">12-Month Destiny Forecast</h2>
+    <div class="chapter-content" id="chapter3">
+      <p>Loading your 12-month forecast...</p>
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-number">Chapter 4</div>
+    <h2 class="chapter-title">Soul Compatibility</h2>
+    <div class="chapter-content" id="chapter4">
+      <p>Loading your compatibility reading...</p>
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-number">Chapter 5</div>
+    <h2 class="chapter-title">Wealth Gate Timing</h2>
+    <div class="chapter-content" id="chapter5">
+      <p>Loading your wealth analysis...</p>
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-number">Chapter 6</div>
+    <h2 class="chapter-title">Your Eastern Practice</h2>
+    <div class="chapter-content" id="chapter6">
+      <p>Loading your personal practice...</p>
+    </div>
+  </div>
+
+  <div class="closing">
+    <p class="closing-signature">With light and wisdom,</p>
+    <p class="closing-name">Mei · Mystic Orient</p>
+  </div>
+
+  <p style="
+    text-align:center;font-size:10px;
+    color:rgba(255,255,255,.15);
+    letter-spacing:.14em;text-transform:uppercase;
+    line-height:1.8;margin-top:48px;
+  ">
+    For entertainment purposes only ·
+    <a href="legal.html" style="color:rgba(255,255,255,.2);text-decoration:none;">Legal</a>
+    · © 2026 Mystic Orient
+  </p>
+</div>
+
+<script>
+function renderReport(){
+  // Payment verification
+  if(localStorage.getItem('moPaymentDone') !== 'true'){
+    window.location.href = 'part4.html';
+    return;
+  }
+  
+  const raw=localStorage.getItem('moUser');
+  if(!raw){
+    window.location.href='index.html';
+    return;
+  }
+  const u=JSON.parse(raw);
+  const answers=u.answers||{};
+  
+  document.getElementById('user-name').textContent=u.name;
+  document.getElementById('archetype-name').textContent=u.archetypeName;
+  document.getElementById('report-date').textContent=new Date().toLocaleDateString('en-GB',{
+    day:'numeric',month:'long',year:'numeric'
+  });
+
+  // Chapter 1 - Destiny Profile
+  document.getElementById('chapter1').innerHTML=`
+    <p><strong>You are ${u.archetypeName}.</strong> ${u.archetypeDesc}</p>
+    <p>Your element is <strong>${u.archetypeElement}</strong>, and your Chinese zodiac is <strong>${u.zodiac}</strong>. 
+    This combination creates a unique energy signature that shapes every aspect of your life.</p>
+    <div class="highlight-box">
+      <p>You told us your biggest block is <strong>${answers.q1||'unknown'}</strong>. 
+      Your chart confirms this exactly — this is not a coincidence. 
+      The celestial energies have been preparing you for this breakthrough.</p>
+    </div>
+    <p>Your guardian star is <strong>${u.archetypeChinese}</strong>, which has been watching over you since birth. 
+    It activates during times of great change and protects you from harm.</p>
+  `;
+
+  // Chapter 2 - Karmic Shackle
+  const shackles={
+    'Start but never finish':'The Unfinished Chain',
+    'Give more than receive':'The Generosity Curse',
+    'Almost succeed':'The Final Step Block',
+    'Wrong people':'The False Connection'
+  };
+  const shackle=shackles[answers.q4]||'The Hidden Chain';
+  document.getElementById('chapter2').innerHTML=`
+    <p>Your karmic shackle is: <strong style="color:#F59E0B;font-size:18px;">[${shackle}]</strong></p>
+    <p>This pattern was formed in a past life when you made a promise that you never kept. 
+    It has followed you into this lifetime, creating the exact pattern you described: 
+    <strong>${answers.q4||'repeating cycles'}</strong>.</p>
+    <p>Right now, it is affecting your <strong>${answers.q1||'life'}</strong> more than any other area. 
+    You have felt this invisible force holding you back — now you know its name.</p>
+    <h3 style="font-size:16px;font-weight:400;margin:24px 0 16px;color:rgba(255,255,255,.7);">
+      21-Day Release Ritual
+    </h3>
+    <ul class="ritual-list">
+      <li>Every morning at sunrise, face east and take 3 deep breaths</li>
+      <li>Write the name of your shackle on a piece of paper</li>
+      <li>Say out loud: "I release this pattern. It no longer serves me."</li>
+      <li>Burn the paper safely and scatter the ashes in running water</li>
+      <li>Repeat for 21 consecutive days without interruption</li>
+    </ul>
+  `;
+
+  // Chapter 3 - 12-Month Forecast
+  document.getElementById('chapter3').innerHTML=`
+    <p>The celestial energies shift month by month, creating windows of opportunity and challenge. 
+    Your peak months are highlighted in gold, and your challenge months are marked in red.</p>
+    <div class="forecast-grid">
+      <div class="forecast-month">
+        <div class="forecast-name">May</div>
+        <div class="forecast-icon">🌱</div>
+        <div class="forecast-desc">New beginnings</div>
+      </div>
+      <div class="forecast-month peak">
+        <div class="forecast-name">June</div>
+        <div class="forecast-icon">⭐</div>
+        <div class="forecast-desc">Peak opportunity</div>
+      </div>
+      <div class="forecast-month">
+        <div class="forecast-name">July</div>
+        <div class="forecast-icon">☀️</div>
+        <div class="forecast-desc">Growth</div>
+      </div>
+      <div class="forecast-month">
+        <div class="forecast-name">August</div>
+        <div class="forecast-icon">🌊</div>
+        <div class="forecast-desc">Flow</div>
+      </div>
+      <div class="forecast-month challenge">
+        <div class="forecast-name">September</div>
+        <div class="forecast-icon">⚠️</div>
+        <div class="forecast-desc">Caution</div>
+      </div>
+      <div class="forecast-month">
+        <div class="forecast-name">October</div>
+        <div class="forecast-icon">🍂</div>
+        <div class="forecast-desc">Harvest</div>
+      </div>
+      <div class="forecast-month peak">
+        <div class="forecast-name">November</div>
+        <div class="forecast-icon">💫</div>
+        <div class="forecast-desc">Major breakthrough</div>
+      </div>
+      <div class="forecast-month">
+        <div class="forecast-name">December</div>
+        <div class="forecast-icon">❄️</div>
+        <div class="forecast-desc">Rest</div>
+      </div>
+      <div class="forecast-month">
+        <div class="forecast-name">January</div>
+        <div class="forecast-icon">🔮</div>
+        <div class="forecast-desc">Clarity</div>
+      </div>
+      <div class="forecast-month">
+        <div class="forecast-name">February</div>
+        <div class="forecast-icon">💖</div>
+        <div class="forecast-desc">Love</div>
+      </div>
+      <div class="forecast-month challenge">
+        <div class="forecast-name">March</div>
+        <div class="forecast-icon">⚡</div>
+        <div class="forecast-desc">Transformation</div>
+      </div>
+      <div class="forecast-month peak">
+        <div class="forecast-name">April</div>
+        <div class="forecast-icon">🏆</div>
+        <div class="forecast-desc">Success</div>
+      </div>
+    </div>
+    <p>Your most important window of opportunity opens in <strong>June 2026</strong> and lasts for 6 weeks. 
+    Do not miss this — the next similar window will not open for another 12 years.</p>
+  `;
+
+  // Chapter 4 - Soul Compatibility
+  const companions={
+    lonestar:'The Celestial Messenger',
+    celestial:'The Lone Star Emperor',
+    sun:'The Moon Weaver',
+    moon:'The Sun Blaze',
+    martial:'The Integrity Breaker',
+    integrity:'The Martial General'
+  };
+  const drains={
+    lonestar:'The Sun Blaze',
+    celestial:'The Martial General',
+    sun:'The Lone Star Emperor',
+    moon:'The Integrity Breaker',
+    martial:'The Moon Weaver',
+    integrity:'The Celestial Messenger'
+  };
+  document.getElementById('chapter4').innerHTML=`
+    <p>Every archetype has one natural soul companion and one energy that will always create friction. 
+    Understanding this changes every relationship you enter.</p>
+    <div class="compatibility-card">
+      <div class="compat-item good">
+        <div class="compat-title">Most Compatible</div>
+        <div class="compat-name">${companions[u.archetype]||'The Celestial Messenger'}</div>
+        <div class="compat-desc">
+          Your energies complement each other perfectly. 
+          You will feel an instant connection and deep understanding.
+        </div>
+      </div>
+      <div class="compat-item bad">
+        <div class="compat-title">Most Draining</div>
+        <div class="compat-name">${drains[u.archetype]||'The Sun Blaze'}</div>
+        <div class="compat-desc">
+          This energy will always leave you feeling exhausted. 
+          Limit your exposure and set clear boundaries.
+        </div>
+      </div>
+    </div>
+    <p>Your current relationship energy is <strong>rising</strong>. 
+    If you are single, you will meet someone significant in the next 3 months. 
+    If you are in a relationship, expect a deepening of your connection.</p>
+  `;
+
+  // Chapter 5 - Wealth Gate Timing
+  document.getElementById('chapter5').innerHTML=`
+    <p>Your wealth cycle opens on <strong>August 15, 2026</strong>. 
+    This is when the celestial energies align to bring you abundance.</p>
+    <p>What is blocking you now: <strong>${answers.q3||'an invisible force'}</strong>. 
+    This is exactly what your karmic shackle is creating. 
+    Once you release it, the wealth will flow naturally.</p>
+    <div class="wealth-timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Now - August 2026</div>
+        <div class="timeline-desc">Preparation phase. Clear your debts and declutter your space.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">August 15 - October 31, 2026</div>
+        <div class="timeline-desc">Wealth gate opens. Expect unexpected opportunities and windfalls.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">November 2026 - March 2027</div>
+        <div class="timeline-desc">Consolidation phase. Invest wisely and save for the future.</div>
+      </div>
+    </div>
+    <h3 style="font-size:16px;font-weight:400;margin:24px 0 16px;color:rgba(255,255,255,.7);">
+      3 Actions to Unlock Your Wealth Gate
+    </h3>
+    <ul class="ritual-list">
+      <li>Place a small bowl of water in the southeast corner of your home</li>
+      <li>Write down 3 financial goals and read them every night before bed</li>
+      <li>Give away 10% of any unexpected income to charity</li>
+    </ul>
+  `;
+
+  // Chapter 6 - Eastern Practice
+  const elements={
+    'Water · Ren':{meditation:'Waterfall meditation',colors:'Black, Blue',directions:'North',numbers:'1, 6'},
+    'Water · Gui':{meditation:'Rain meditation',colors:'Black, Blue',directions:'North',numbers:'1, 6'},
+    'Fire · Bing':{meditation:'Candle meditation',colors:'Red, Orange',directions:'South',numbers:'3, 4'},
+    'Fire · Ding':{meditation:'Candle meditation',colors:'Red, Orange',directions:'South',numbers:'3, 4'},
+    'Earth · Wu':{meditation:'Mountain meditation',colors:'Yellow, Brown',directions:'Center',numbers:'5, 8'},
+    'Earth · Ji':{meditation:'Mountain meditation',colors:'Yellow, Brown',directions:'Center',numbers:'5, 8'},
+    'Metal · Geng':{meditation:'Bell meditation',colors:'White, Gray',directions:'West',numbers:'7, 8'},
+    'Metal · Xin':{meditation:'Bell meditation',colors:'White, Gray',directions:'West',numbers:'7, 8'},
+    'Wood · Jia':{meditation:'Forest meditation',colors:'Green, Brown',directions:'East',numbers:'3, 4'},
+    'Wood · Yi':{meditation:'Forest meditation',colors:'Green, Brown',directions:'East',numbers:'3, 4'}
+  };
+  const practice=elements[u.archetypeElement]||elements['Water · Ren'];
+  document.getElementById('chapter6').innerHTML=`
+    <p>These practices are specifically designed for your ${u.archetypeElement} element. 
+    They will help you balance your energy and align with your destiny.</p>
+    <div class="practice-grid">
+      <div class="practice-card">
+        <div class="practice-title">Personal Meditation</div>
+        <div class="practice-content">${practice.meditation} for 10 minutes every morning. 
+        Focus on your breath and allow your thoughts to flow like water.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Lucky Colors</div>
+        <div class="practice-content">${practice.colors}. Wear these colors on important days 
+        to attract positive energy.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Lucky Directions</div>
+        <div class="practice-content">Face ${practice.directions} when making important decisions 
+        or meditating.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Lucky Numbers</div>
+        <div class="practice-content">${practice.numbers}. These numbers resonate with your energy. 
+        Use them whenever possible.</div>
+      </div>
+    </div>
+    <h3 style="font-size:16px;font-weight:400;margin:24px 0 16px;color:rgba(255,255,255,.7);">
+      Daily Energy Ritual
+    </h3>
+    <ul class="ritual-list">
+      <li>Morning: Drink a glass of warm water with lemon to cleanse your energy</li>
+      <li>Afternoon: Take a 5-minute walk outside to ground yourself</li>
+      <li>Evening: Write down 3 things you are grateful for before bed</li>
+    </ul>
+  `;
+}
+
+function initScrollProgress(){
+  window.addEventListener('scroll',function(){
+    const scrollTop=window.scrollY;
+    const docHeight=document.documentElement.scrollHeight-window.innerHeight;
+    const scrollPercent=scrollTop/docHeight;
+    document.getElementById('scroll-progress').style.transform=`scaleX(${scrollPercent})`;
+  });
+}
+
+function downloadPDF(){
+  alert('PDF download feature will be available in the next update. For now, you can print this page as a PDF.');
+  window.print();
+}
+
+window.addEventListener('DOMContentLoaded',function(){
+  if(localStorage.getItem('moAgreed')!=='true'){
+    window.location.href='index.html';
+    return;
+  }
+  setTimeout(function(){
+    document.getElementById('progress-fill').style.width='100%';
+  },300);
+  renderReport();
+  initScrollProgress();
+});
+</script>
+
+<div id="support-widget" style="
+  position:fixed;bottom:32px;right:32px;z-index:200;
+  opacity:0;transition:opacity .6s ease;pointer-events:none;
+">
+  <button onclick="openDifyChat()" style="
+    background:#F59E0B;color:#000;
+    border:none;border-radius:999px;
+    padding:12px 22px;
+    font-size:12px;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;
+    cursor:pointer;font-family:inherit;
+    box-shadow:0 4px 24px rgba(245,158,11,.3);
+    display:flex;align-items:center;gap:8px;
+    transition:opacity .2s;
+  ">
+    <span style="font-size:16px;">💬</span> Ask Mei
+  </button>
+</div>
+<div id="dify-chat-window" style="
+  display:none;
+  position:fixed;bottom:90px;right:32px;z-index:201;
+  width:360px;height:520px;
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 8px 48px rgba(0,0,0,.6);
+  border:1px solid rgba(245,158,11,.15);
+">
+  <iframe id="dify-iframe" src="" style="width:100%;height:100%;border:none;" allow="microphone"></iframe>
+</div>
+
+<script>
+const DIFY_TOKEN='YOUR_DIFY_TOKEN';
+function openDifyChat(){
+  const win=document.getElementById('dify-chat-window');
+  const iframe=document.getElementById('dify-iframe');
+  if(win.style.display==='none'){
+    if(!iframe.src||iframe.src===''){
+      const user=JSON.parse(localStorage.getItem('moUser')||'{}');
+      const userParams=new URLSearchParams({
+        name:user.name||'',
+        archetype:user.archetypeName||'',
+        element:user.archetypeElement||''
+      }).toString();
+      iframe.src=`https://udify.app/chatbot/${DIFY_TOKEN}?${userParams}`;
+    }
+    win.style.display='block';
+  }else{
+    win.style.display='none';
+  }
+}
+document.addEventListener('click',function(e){
+  const win=document.getElementById('dify-chat-window');
+  const btn=document.getElementById('support-widget');
+  if(win.style.display==='block'&&!win.contains(e.target)&&!btn.contains(e.target)){
+    win.style.display='none';
+  }
+});
+setTimeout(function(){
+  const w=document.getElementById('support-widget');
+  w.style.opacity='1';
+  w.style.pointer-events='auto';
+},6000);
+</script>
+</body>
+</html>

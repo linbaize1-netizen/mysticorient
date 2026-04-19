@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Your Destiny Archetype · Mystic Orient</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#F59E0B;
+  --gold-dim:rgba(245,158,11,.18);
+  --sub:rgba(255,255,255,.5);
+  --dim:rgba(255,255,255,.22);
+  --bor:rgba(255,255,255,.07);
+}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  font-weight:300;line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:min(900px,150vw);height:min(900px,150vw);
+  background:radial-gradient(circle,rgba(245,158,11,.055) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 48px;
+}
+.nav-logo{
+  font-size:13px;letter-spacing:.32em;
+  color:rgba(255,255,255,.4);
+  text-transform:uppercase;text-decoration:none;font-weight:300;
+}
+.nav-logo span{color:var(--gold);}
+.progress-wrap{
+  position:fixed;top:0;left:0;right:0;z-index:101;
+  height:2px;background:rgba(255,255,255,.05);
+}
+.progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#F59E0B,#FBBF24);
+  transition:width .6s ease;
+}
+.progress-label{
+  position:fixed;top:14px;right:48px;z-index:102;
+  font-size:10px;letter-spacing:.28em;
+  color:rgba(255,255,255,.22);text-transform:uppercase;
+}
+.page{
+  position:relative;z-index:1;
+  padding:110px 24px 100px;
+  max-width:680px;margin:0 auto;
+}
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.show{opacity:1;transform:translateY(0);}
+.arch-hero{
+  text-align:center;
+  padding:60px 32px 52px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:28px;
+  margin-bottom:24px;
+  position:relative;overflow:hidden;
+}
+.arch-hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,var(--arch-glow,rgba(245,158,11,.07)) 0%,transparent 65%);
+  pointer-events:none;
+}
+.arch-eyebrow{
+  font-size:10px;letter-spacing:.42em;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:28px;
+}
+.arch-chinese{
+  font-size:clamp(72px,18vw,120px);
+  display:block;margin-bottom:12px;
+  line-height:1;
+  filter:drop-shadow(0 0 40px var(--arch-color,#F59E0B));
+  animation:breathe 5s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{transform:scale(1);opacity:.85}
+  50%{transform:scale(1.06);opacity:1}
+}
+.arch-name{
+  font-size:clamp(24px,5vw,38px);
+  font-weight:200;letter-spacing:.08em;
+  margin-bottom:10px;
+}
+.arch-name span{color:var(--arch-color,#F59E0B);}
+.arch-element{
+  font-size:11px;letter-spacing:.32em;
+  color:rgba(255,255,255,.3);
+  text-transform:uppercase;margin-bottom:24px;
+}
+.arch-theme{
+  display:inline-block;
+  font-size:12px;letter-spacing:.18em;
+  color:var(--arch-color,#F59E0B);
+  text-transform:uppercase;
+  border:1px solid var(--arch-color,#F59E0B);
+  border-radius:999px;
+  padding:6px 20px;
+  opacity:.7;margin-bottom:28px;
+}
+.arch-desc{
+  font-size:15px;color:rgba(255,255,255,.58);
+  line-height:1.9;max-width:480px;margin:0 auto;
+}
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin-bottom:24px;
+}
+.stat-card{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;padding:22px 16px;
+  text-align:center;
+}
+.stat-val{
+  font-size:clamp(20px,4vw,28px);
+  font-weight:200;color:var(--gold);
+  letter-spacing:.04em;display:block;
+  margin-bottom:4px;
+}
+.stat-lbl{
+  font-size:9px;letter-spacing:.22em;
+  color:rgba(255,255,255,.25);
+  text-transform:uppercase;line-height:1.5;
+}
+.section-label{
+  font-size:10px;letter-spacing:.38em;
+  color:rgba(255,255,255,.25);
+  text-transform:uppercase;
+  text-align:center;margin-bottom:32px;
+  display:flex;align-items:center;gap:14px;
+  justify-content:center;
+}
+.section-label::before,.section-label::after{
+  content:'';display:block;
+  width:32px;height:1px;
+  background:rgba(255,255,255,.1);
+}
+.report-card{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:20px;
+  padding:32px 30px;
+  margin-bottom:16px;
+}
+.report-card-head{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:16px;
+}
+.report-card-icon{font-size:22px;}
+.report-card-title{
+  font-size:14px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,.65);
+  font-weight:400;
+}
+.report-card-body{
+  font-size:13px;color:rgba(255,255,255,.45);
+  line-height:1.85;
+}
+.report-card-body strong{
+  color:rgba(255,255,255,.72);font-weight:400;
+}
+.blur-section{
+  position:relative;
+  margin-bottom:16px;
+}
+.blur-inner{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:20px;
+  padding:32px 30px;
+  filter:blur(5px);
+  user-select:none;pointer-events:none;
+  opacity:.55;
+}
+.blur-overlay{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:10px;
+  background:rgba(0,0,0,.45);
+  border-radius:20px;
+  backdrop-filter:blur(2px);
+}
+.blur-lock-icon{font-size:28px;}
+.blur-lock-text{
+  font-size:12px;letter-spacing:.2em;
+  color:rgba(255,255,255,.5);
+  text-transform:uppercase;text-align:center;
+  line-height:1.7;
+}
+.blur-lock-text span{
+  color:var(--gold);display:block;
+  font-size:13px;margin-bottom:2px;
+}
+.upgrade-box{
+  background:rgba(245,158,11,.05);
+  border:1px solid rgba(245,158,11,.18);
+  border-radius:24px;
+  padding:48px 36px;
+  text-align:center;
+  margin-top:32px;
+  position:relative;overflow:hidden;
+}
+.upgrade-box::before{
+  content:'';position:absolute;
+  top:-60px;left:50%;transform:translateX(-50%);
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(245,158,11,.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.upgrade-eyebrow{
+  font-size:10px;letter-spacing:.38em;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:16px;
+}
+.upgrade-title{
+  font-size:clamp(22px,4.5vw,32px);
+  font-weight:200;letter-spacing:.06em;
+  margin-bottom:12px;line-height:1.25;
+}
+.upgrade-title span{color:var(--gold);}
+.upgrade-desc{
+  font-size:13px;color:rgba(255,255,255,.45);
+  line-height:1.85;max-width:420px;
+  margin:0 auto 32px;
+}
+.upgrade-features{
+  display:flex;flex-direction:column;gap:10px;
+  max-width:360px;margin:0 auto 36px;
+  text-align:left;
+}
+.upgrade-feat{
+  display:flex;align-items:flex-start;gap:12px;
+  font-size:13px;color:rgba(255,255,255,.55);
+  line-height:1.6;
+}
+.upgrade-feat-icon{
+  color:var(--gold);font-size:14px;
+  flex-shrink:0;margin-top:2px;
+}
+.price-row{
+  display:flex;align-items:baseline;
+  justify-content:center;gap:8px;
+  margin-bottom:8px;
+}
+.price-main{
+  font-size:clamp(36px,7vw,52px);
+  font-weight:200;color:#fff;letter-spacing:.04em;
+}
+.price-currency{
+  font-size:20px;color:rgba(255,255,255,.5);
+  font-weight:300;
+}
+.price-note{
+  font-size:11px;color:rgba(255,255,255,.25);
+  letter-spacing:.12em;margin-bottom:28px;
+  text-transform:uppercase;
+}
+.btn-upgrade{
+  display:inline-block;
+  background:var(--gold);color:#000;
+  font-size:13px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:18px 56px;border-radius:999px;
+  border:none;cursor:pointer;font-family:inherit;
+  transition:opacity .22s,transform .22s;
+  box-shadow:0 0 48px rgba(245,158,11,.2);
+  text-decoration:none;
+}
+.btn-upgrade:hover{opacity:.86;transform:translateY(-2px);}
+.upgrade-sub{
+  font-size:11px;color:rgba(255,255,255,.2);
+  letter-spacing:.14em;text-transform:uppercase;
+  margin-top:14px;
+}
+@media(max-width:520px){
+  nav{padding:18px 20px;}
+  .progress-label{right:20px;}
+  .stats-row{grid-template-columns:1fr 1fr 1fr;}
+  .arch-hero{padding:40px 20px 36px;}
+  .upgrade-box{padding:36px 20px;}
+  .upgrade-feat{font-size:12px;}
+}
+</style>
+</head>
+<body>
+<div class="progress-wrap">
+  <div class="progress-fill" id="progress-fill"></div>
+</div>
+<div class="progress-label">Step 2 of 4</div>
+<nav>
+  <a href="part2.html" class="nav-logo">← Back</a>
+</nav>
+<div class="page">
+  <div class="arch-hero reveal" id="arch-hero">
+    <p class="arch-eyebrow">Your Eastern Destiny Archetype</p>
+    <span class="arch-chinese" id="arch-chinese">紫</span>
+    <h1 class="arch-name"><span id="arch-name-text">The Lone Star Emperor</span></h1>
+    <p class="arch-element" id="arch-element">Water · Ren</p>
+    <div class="arch-theme" id="arch-theme">Leadership · Solitude · Destiny</div>
+    <p class="arch-desc" id="arch-desc">
+      You are not an ordinary person. Zi Wei star in your birth chart gives you a natural imperial aura.
+    </p>
+  </div>
+  
+  <div class="stats-row reveal" id="stats-row">
+    <div class="stat-card">
+      <span class="stat-val" id="stat-zodiac">Rat</span>
+      <span class="stat-lbl">Chinese<br>Zodiac</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-val" id="stat-element">Water</span>
+      <span class="stat-lbl">Birth<br>Element</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-val" id="stat-compat">Celestial</span>
+      <span class="stat-lbl">Soul<br>Companion</span>
+    </div>
+  </div>
+  
+  <p class="section-label reveal">Your Free Reading</p>
+  
+  <div class="report-card reveal">
+    <div class="report-card-head">
+      <span class="report-card-icon">☯</span>
+      <span class="report-card-title">Your Core Nature</span>
+    </div>
+    <p class="report-card-body" id="report-core">Loading your reading…</p>
+  </div>
+  
+  <div class="report-card reveal">
+    <div class="report-card-head">
+      <span class="report-card-icon">⚡</span>
+      <span class="report-card-title">Your Hidden Strength</span>
+    </div>
+    <p class="report-card-body" id="report-strength">Loading your reading…</p>
+  </div>
+  
+  <div class="report-card reveal">
+    <div class="report-card-head">
+      <span class="report-card-icon">🌙</span>
+      <span class="report-card-title">Current Energy Cycle</span>
+    </div>
+    <p class="report-card-body" id="report-energy">Loading your reading…</p>
+  </div>
+  
+  <p class="section-label reveal" style="margin-top:32px;">Full Destiny Report</p>
+  
+  <div class="blur-section reveal">
+    <div class="blur-inner">
+      <div class="report-card-head">
+        <span class="report-card-icon">🔗</span>
+        <span class="report-card-title">Your Karmic Shackle</span>
+      </div>
+      <p class="report-card-body">
+        There is a karmic pattern that has followed you across lifetimes.
+        It appears in your relationships, your career choices, and your
+        deepest fears. Until you name it, it will continue to shape your
+        destiny without your awareness. The ancient texts describe this
+        pattern in precise detail for your archetype.
+      </p>
+    </div>
+    <div class="blur-overlay">
+      <span class="blur-lock-icon">🔒</span>
+      <p class="blur-lock-text">
+        <span>Karmic Shackle Analysis</span>
+        Unlock with Full Report
+      </p>
+    </div>
+  </div>
+  
+  <div class="blur-section reveal">
+    <div class="blur-inner">
+      <div class="report-card-head">
+        <span class="report-card-icon">📅</span>
+        <span class="report-card-title">12-Month Destiny Forecast</span>
+      </div>
+      <p class="report-card-body">
+        Month by month, the celestial energies shift in ways that
+        directly affect your archetype. Your peak opportunity window
+        opens in a specific 6-week period this year — missing it means
+        waiting another full cycle. Your forecast reveals exactly when
+        to act, when to rest, and when to prepare.
+      </p>
+    </div>
+    <div class="blur-overlay">
+      <span class="blur-lock-icon">🔒</span>
+      <p class="blur-lock-text">
+        <span>12-Month Forecast</span>
+        Unlock with Full Report
+      </p>
+    </div>
+  </div>
+  
+  <div class="blur-section reveal">
+    <div class="blur-inner">
+      <div class="report-card-head">
+        <span class="report-card-icon">💫</span>
+        <span class="report-card-title">Soul Companion Reading</span>
+      </div>
+      <p class="report-card-body">
+        Your archetype has one natural soul companion and one energy
+        that will always create friction. Understanding this changes
+        every relationship you enter. The full reading reveals which
+        archetypes align with yours and the precise reason why certain
+        people in your life feel like destiny.
+      </p>
+    </div>
+    <div class="blur-overlay">
+      <span class="blur-lock-icon">🔒</span>
+      <p class="blur-lock-text">
+        <span>Soul Companion Reading</span>
+        Unlock with Full Report
+      </p>
+    </div>
+  </div>
+  
+  <div class="blur-section reveal">
+    <div class="blur-inner">
+      <div class="report-card-head">
+        <span class="report-card-icon">🌑</span>
+        <span class="report-card-title">Your Hidden Obstacle</span>
+      </div>
+      <p class="report-card-body">
+        Every archetype carries one invisible obstacle — a pattern so
+        deeply woven into your nature that most people never identify
+        it. It is the reason certain doors seem permanently closed.
+        The ancient texts name it directly, and naming it is the
+        first step to dissolving it.
+      </p>
+    </div>
+    <div class="blur-overlay">
+      <span class="blur-lock-icon">🔒</span>
+      <p class="blur-lock-text">
+        <span>Hidden Obstacle Analysis</span>
+        Unlock with Full Report
+      </p>
+    </div>
+  </div>
+  
+  <div class="upgrade-box reveal" id="upgrade-box">
+    <p class="upgrade-eyebrow">Complete Destiny Report</p>
+    <h2 class="upgrade-title">
+      Unlock <span>Everything</span><br>About Your Path
+    </h2>
+    <p class="upgrade-desc">
+      Your free reading reveals your archetype.
+      The full report reveals <em>why your life has unfolded exactly
+      as it has</em> — and what comes next.
+    </p>
+    <div class="upgrade-features">
+      <div class="upgrade-feat">
+        <span class="upgrade-feat-icon">✦</span>
+        <span><strong style="color:rgba(255,255,255,.72);font-weight:400;">Karmic Shackle Analysis</strong> — the hidden pattern blocking your progress</span>
+      </div>
+      <div class="upgrade-feat">
+        <span class="upgrade-feat-icon">✦</span>
+        <span><strong style="color:rgba(255,255,255,.72);font-weight:400;">12-Month Destiny Forecast</strong> — month-by-month celestial guidance</span>
+      </div>
+      <div class="upgrade-feat">
+        <span class="upgrade-feat-icon">✦</span>
+        <span><strong style="color:rgba(255,255,255,.72);font-weight:400;">Soul Companion Reading</strong> — who aligns with your energy and why</span>
+      </div>
+      <div class="upgrade-feat">
+        <span class="upgrade-feat-icon">✦</span>
+        <span><strong style="color:rgba(255,255,255,.72);font-weight:400;">Hidden Obstacle Reveal</strong> — name it to dissolve it</span>
+      </div>
+      <div class="upgrade-feat">
+        <span class="upgrade-feat-icon">✦</span>
+        <span><strong style="color:rgba(255,255,255,.72);font-weight:400;">Personalised PDF Report</strong> — yours to keep forever</span>
+      </div>
+    </div>
+    <div class="price-row">
+      <span class="price-currency">£</span>
+      <span class="price-main">9.99</span>
+    </div>
+    <p class="price-note">One-time · No subscription · Instant delivery</p>
+    <a href="part4.html" class="btn-upgrade" id="btn-unlock">
+      Unlock My Full Report →
+    </a>
+    <p class="upgrade-sub">
+      Secure payment via PayPal · 100% private
+    </p>
+  </div>
+  
+  <p style="
+    text-align:center;font-size:10px;
+    color:rgba(255,255,255,.15);
+    letter-spacing:.14em;text-transform:uppercase;
+    line-height:1.8;margin-top:48px;
+  ">
+    For entertainment purposes only ·
+    <a href="legal.html" style="color:rgba(255,255,255,.2);text-decoration:none;">Legal</a>
+    · © 2026 Mystic Orient
+  </p>
+</div>
+
+<script>
+// V2.0 标准报告文本
+const REPORT_TEXT={
+  lonestar:{
+    core:`<strong>You are built for magnitude.</strong> The Lone Star Emperor
+      carries an energy that most people feel before you even speak.
+      You have always sensed that your life is meant for something
+      larger than ordinary — this is not ego, it is celestial design.
+      Your challenge has never been capability; it has been learning
+      to channel your immense energy without burning the structures
+      around you.`,
+    strength:`Your hidden strength is your ability to
+      <strong>see the big picture when everyone else is lost in details.</strong>
+      You instinctively know what matters and what doesn't. This gift
+      has saved you more times than you realise — often in the moments
+      you felt most alone, you were actually being guided to your true path.`,
+    energy:`The current celestial cycle activates the Lone Star's
+      <strong>leadership phase.</strong> If the past 12–18 months have
+      felt like others were taking credit for your work, that period is ending.
+      The energy now supports you stepping fully into your authority —
+      even if it means walking alone for a while.`
+  },
+  celestial:{
+    core:`<strong>Your brain never truly rests.</strong> The Celestial Messenger
+      processes the world at a speed most people cannot match. You see
+      patterns and connections that are invisible to others. This is not
+      overthinking — it is how your soul interacts with the world.`,
+    strength:`Your hidden strength is
+      <strong>your intuition.</strong>
+      You know things before they happen. The times you ignored this
+      inner voice are precisely the times things went wrong. Learning
+      to trust this quiet knowing is your greatest life lesson.`,
+    energy:`The Celestial currently moves through a
+      <strong>download phase.</strong>
+      All the scattered thoughts and ideas you've been having are
+      not random — they are preparing you for a major breakthrough
+      in the next 90 days. Trust the process.`
+  },
+  sun:{
+    core:`<strong>You are a natural light source.</strong> The Sun Blaze
+      brightens every room you enter. People are drawn to your warmth
+      and optimism, even when you don't feel it yourself. Your purpose
+      is to illuminate the paths of others.`,
+    strength:`Your hidden strength is
+      <strong>your generosity.</strong>
+      You give freely of your time, energy, and love without expecting
+      anything in return. This is not a weakness — it is your superpower.
+      The universe always returns what you give, in unexpected ways.`,
+    energy:`The Sun is currently in a
+      <strong>replenishment phase.</strong>
+      You have been giving too much for too long. The next 3 months
+      are for you to rest and recharge. It is not selfish to put
+      yourself first — it is necessary.`
+  },
+  martial:{
+    core:`<strong>You are a person of your word.</strong> The Martial General
+      values results above everything else. You don't make empty promises,
+      and you expect the same from others. Your reliability makes you
+      the rock that everyone leans on.`,
+    strength:`Your hidden strength is
+      <strong>your willpower.</strong>
+      When you set your mind to something, nothing can stop you.
+      You have the ability to turn even the most difficult situations
+      into opportunities for growth and success.`,
+    energy:`The Martial General currently enters a
+      <strong>wealth activation phase.</strong>
+      All the hard work you have put in over the past years is
+      about to pay off. Be ready to receive the abundance that
+      is coming your way.`
+  },
+  integrity:{
+    core:`<strong>You were born to break the rules.</strong> The Integrity Breaker
+      sees what is broken in the world and has the courage to fix it.
+      You are not afraid to challenge the status quo and create
+      something better.`,
+    strength:`Your hidden strength is
+      <strong>your courage.</strong>
+      You are willing to take risks that others won't. This makes you
+      a natural leader and innovator. Your willingness to fail is
+      precisely what makes you so successful.`,
+    energy:`The Integrity Breaker is currently in a
+      <strong>transformation phase.</strong>
+      Something in your life that no longer serves you is coming
+      to an end. This is not a loss — it is making space for
+      something much better.`
+  },
+  moon:{
+    core:`<strong>You feel everything deeply.</strong> The Moon Weaver
+      has a gift for empathy and understanding. You can sense what
+      others are feeling even before they say it. This makes you
+      an extraordinary friend and confidant.`,
+    strength:`Your hidden strength is
+      <strong>your creativity.</strong>
+      You see beauty in places others overlook. Your imagination
+      is boundless, and you have the ability to turn your dreams
+      into reality.`,
+    energy:`The Moon is currently in a
+      <strong>full illumination phase.</strong>
+      Things that have been hidden from you are now being revealed.
+      Trust what you see and what you feel — the truth will set you free.`
+  }
+};
+
+const COMPANIONS={
+  lonestar:'The Celestial Messenger',
+  celestial:'The Lone Star Emperor',
+  sun:'The Moon Weaver',
+  moon:'The Sun Blaze',
+  martial:'The Integrity Breaker',
+  integrity:'The Martial General'
+};
+
+const ARCH_COLORS={
+  lonestar:'#F59E0B',
+  celestial:'#8B5CF6',
+  sun:'#EF4444',
+  martial:'#10B981',
+  integrity:'#6B7280',
+  moon:'#93C5FD'
+};
+
+function renderPage(){
+  const raw=localStorage.getItem('moUser');
+  if(!raw){
+    window.location.href='index.html';
+    return;
+  }
+  const u=JSON.parse(raw);
+  const id=u.archetype;
+  const color=ARCH_COLORS[id]||'#F59E0B';
+  const report=REPORT_TEXT[id];
+  const companion=COMPANIONS[id]||'Celestial';
+  
+  document.documentElement.style.setProperty('--arch-color',color);
+  document.documentElement.style.setProperty('--arch-glow',color.replace(')',', .08)').replace('rgb','rgba'));
+  
+  document.getElementById('arch-chinese').textContent=u.archetypeChinese;
+  document.getElementById('arch-chinese').style.color=color;
+  document.getElementById('arch-name-text').textContent=u.archetypeName;
+  document.getElementById('arch-element').textContent=u.archetypeElement;
+  document.getElementById('arch-theme').textContent=u.archetypeTheme;
+  document.getElementById('arch-desc').textContent=u.archetypeDesc;
+  
+  document.getElementById('stat-zodiac').textContent=u.zodiac;
+  document.getElementById('stat-element').textContent=u.element;
+  document.getElementById('stat-compat').textContent=companion;
+  
+  document.getElementById('report-core').innerHTML=report.core;
+  document.getElementById('report-strength').innerHTML=report.strength;
+  document.getElementById('report-energy').innerHTML=report.energy;
+  
+  document.getElementById('upgrade-box').querySelector('.upgrade-title').innerHTML=
+    `Unlock <span style="color:${color}">${u.name}'s</span><br>Full Destiny Report`;
+}
+
+function initReveal(){
+  const els=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.12});
+  els.forEach(function(el){observer.observe(el);});
+}
+
+function staggerEntry(){
+  const els=document.querySelectorAll('.reveal');
+  els.forEach(function(el,i){
+    el.style.transitionDelay=(i*0.08)+'s';
+  });
+}
+
+function initProgress(){
+  setTimeout(function(){
+    document.getElementById('progress-fill').style.width='50%';
+  },300);
+}
+
+function typewriterName(){
+  const el=document.getElementById('arch-name-text');
+  const full=el.textContent;
+  el.textContent='';
+  let i=0;
+  const timer=setInterval(function(){
+    el.textContent+=full[i];
+    i++;
+    if(i>=full.length)clearInterval(timer);
+  },48);
+}
+
+window.addEventListener('DOMContentLoaded',function(){
+  if(localStorage.getItem('moAgreed')!=='true'){
+    window.location.href='index.html';
+    return;
+  }
+  renderPage();
+  staggerEntry();
+  initReveal();
+  initProgress();
+  setTimeout(typewriterName,600);
+});
+</script>
+
+<div id="support-widget" style="
+  position:fixed;bottom:32px;right:32px;z-index:200;
+  opacity:0;transition:opacity .6s ease;pointer-events:none;
+">
+  <button onclick="openDifyChat()" style="
+    background:#F59E0B;color:#000;
+    border:none;border-radius:999px;
+    padding:12px 22px;
+    font-size:12px;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;
+    cursor:pointer;font-family:inherit;
+    box-shadow:0 4px 24px rgba(245,158,11,.3);
+    display:flex;align-items:center;gap:8px;
+    transition:opacity .2s;
+  ">
+    <span style="font-size:16px;">💬</span> Support
+  </button>
+</div>
+<div id="dify-chat-window" style="
+  display:none;
+  position:fixed;bottom:90px;right:32px;z-index:201;
+  width:360px;height:520px;
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 8px 48px rgba(0,0,0,.6);
+  border:1px solid rgba(245,158,11,.15);
+">
+  <iframe id="dify-iframe" src="" style="width:100%;height:100%;border:none;" allow="microphone"></iframe>
+</div>
+
+<script>
+const DIFY_TOKEN='YOUR_DIFY_TOKEN';
+function openDifyChat(){
+  const win=document.getElementById('dify-chat-window');
+  const iframe=document.getElementById('dify-iframe');
+  if(win.style.display==='none'){
+    if(!iframe.src||iframe.src===''){
+      iframe.src='https://udify.app/chatbot/'+DIFY_TOKEN;
+    }
+    win.style.display='block';
+  }else{
+    win.style.display='none';
+  }
+}
+document.addEventListener('click',function(e){
+  const win=document.getElementById('dify-chat-window');
+  const btn=document.getElementById('support-widget');
+  if(win.style.display==='block'&&!win.contains(e.target)&&!btn.contains(e.target)){
+    win.style.display='none';
+  }
+});
+</script>
+</body>
+</html>

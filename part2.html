@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Your Reading · Mystic Orient</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#F59E0B;
+  --gold-glow:rgba(245,158,11,.22);
+  --sub:rgba(255,255,255,.5);
+  --dim:rgba(255,255,255,.22);
+  --bor:rgba(255,255,255,.07);
+  --err:#ef4444;
+}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  font-weight:300;line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:min(900px,150vw);height:min(900px,150vw);
+  background:radial-gradient(circle,rgba(245,158,11,.055) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 48px;
+}
+.nav-logo{
+  font-size:13px;letter-spacing:.32em;
+  color:rgba(255,255,255,.4);
+  text-transform:uppercase;text-decoration:none;font-weight:300;
+}
+.nav-logo span{color:var(--gold);}
+.progress-wrap{
+  position:fixed;top:0;left:0;right:0;z-index:101;
+  height:2px;background:rgba(255,255,255,.05);
+}
+.progress-fill{
+  height:100%;width:25%;
+  background:linear-gradient(90deg,#F59E0B,#FBBF24);
+  transition:width .5s ease;
+}
+.progress-label{
+  position:fixed;top:14px;right:48px;z-index:102;
+  font-size:10px;letter-spacing:.28em;
+  color:rgba(255,255,255,.22);text-transform:uppercase;
+}
+.page{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:100px 24px 80px;
+}
+.card{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:24px;
+  padding:52px 48px;
+  width:100%;max-width:480px;
+  box-shadow:0 0 80px rgba(0,0,0,.4);
+}
+.card-icon{
+  font-size:36px;text-align:center;
+  display:block;margin-bottom:16px;
+}
+.card-eyebrow{
+  font-size:10px;letter-spacing:.38em;
+  color:var(--gold);text-transform:uppercase;
+  text-align:center;margin-bottom:10px;
+}
+.card-title{
+  font-size:clamp(22px,4vw,30px);
+  font-weight:200;letter-spacing:.06em;
+  text-align:center;margin-bottom:8px;
+}
+.card-title span{color:var(--gold);}
+.card-sub{
+  font-size:13px;color:var(--sub);
+  text-align:center;line-height:1.75;
+  margin-bottom:36px;
+}
+.divider{
+  width:32px;height:1px;
+  background:rgba(245,158,11,.35);
+  margin:0 auto 32px;
+}
+.field{margin-bottom:20px;}
+.field label{
+  display:block;
+  font-size:11px;letter-spacing:.22em;
+  color:rgba(255,255,255,.35);
+  text-transform:uppercase;margin-bottom:8px;
+}
+.field input,.field select{
+  width:100%;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  padding:14px 16px;
+  color:#fff;font-size:14px;
+  font-family:inherit;font-weight:300;
+  outline:none;
+  transition:border-color .22s,background .22s;
+  appearance:none;-webkit-appearance:none;
+}
+.field input::placeholder{color:rgba(255,255,255,.2);}
+.field input:focus,.field select:focus{
+  border-color:rgba(245,158,11,.45);
+  background:rgba(245,158,11,.04);
+}
+.field select option{background:#111;color:#fff;}
+.gender-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.gender-btn{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:13px;
+  color:rgba(255,255,255,.45);
+  font-size:13px;font-family:inherit;
+  cursor:pointer;text-align:center;
+  transition:all .22s;letter-spacing:.08em;
+}
+.gender-btn:hover{
+  border-color:rgba(245,158,11,.3);
+  color:rgba(255,255,255,.7);
+}
+.gender-btn.active{
+  border-color:var(--gold);
+  background:rgba(245,158,11,.08);
+  color:var(--gold);
+}
+.dob-row{
+  display:grid;
+  grid-template-columns:1fr 1.4fr 1fr;
+  gap:10px;
+}
+.field-err{
+  font-size:11px;color:var(--err);
+  margin-top:6px;display:none;
+  letter-spacing:.08em;
+}
+.btn-submit{
+  width:100%;
+  background:var(--gold);color:#000;
+  font-size:13px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:17px;border-radius:999px;
+  border:none;cursor:pointer;font-family:inherit;
+  margin-top:8px;
+  transition:opacity .22s,transform .22s;
+  box-shadow:0 0 40px rgba(245,158,11,.15);
+}
+.btn-submit:hover{opacity:.86;transform:translateY(-1px);}
+.btn-submit:disabled{
+  opacity:.35;cursor:not-allowed;transform:none;
+}
+#minor-lock{
+  display:none;
+  background:rgba(239,68,68,.06);
+  border:1px solid rgba(239,68,68,.18);
+  border-radius:12px;padding:18px 20px;
+  margin-top:16px;text-align:center;
+}
+#minor-lock p{
+  font-size:12px;color:rgba(239,68,68,.75);
+  line-height:1.7;letter-spacing:.06em;
+}
+.trust-row{
+  display:flex;justify-content:center;
+  gap:24px;margin-top:24px;flex-wrap:wrap;
+}
+.trust-item{
+  font-size:10px;letter-spacing:.18em;
+  color:rgba(255,255,255,.18);
+  text-transform:uppercase;
+  display:flex;align-items:center;gap:6px;
+}
+.trust-item span{color:rgba(245,158,11,.45);}
+@media(max-width:520px){
+  .card{padding:36px 24px;}
+  nav{padding:18px 20px;}
+  .progress-label{right:20px;}
+  .dob-row{grid-template-columns:1fr 1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div class="progress-wrap">
+  <div class="progress-fill" id="progress-fill"></div>
+</div>
+<div class="progress-label">Step 1 of 4</div>
+<nav>
+  <a href="index.html" class="nav-logo">Mystic <span>Orient</span></a>
+</nav>
+<div class="page">
+  <div class="card">
+    <span class="card-icon">🌸</span>
+    <p class="card-eyebrow">Step 1 · Your Identity</p>
+    <h1 class="card-title">Tell Mei <span>Who You Are</span></h1>
+    <p class="card-sub">
+      Your birth data unlocks your Eastern destiny archetype.<br>
+      Ancient wisdom, calculated in seconds.
+    </p>
+    <div class="divider"></div>
+    <form id="mo-form" novalidate>
+      <div class="field">
+        <label for="inp-name">Your First Name</label>
+        <input type="text" id="inp-name" placeholder="e.g. Sarah" autocomplete="given-name" maxlength="40"/>
+        <p class="field-err" id="err-name">Please enter your name</p>
+      </div>
+      <div class="field">
+        <label>Your Gender</label>
+        <div class="gender-row">
+          <button type="button" class="gender-btn" id="btn-female" onclick="selectGender('female')">♀ Female</button>
+          <button type="button" class="gender-btn" id="btn-male" onclick="selectGender('male')">♂ Male</button>
+        </div>
+        <p class="field-err" id="err-gender">Please select your gender</p>
+      </div>
+      <div class="field">
+        <label>Date of Birth</label>
+        <div class="dob-row">
+          <select id="inp-day" onchange="checkAge()">
+            <option value="">Day</option>
+          </select>
+          <select id="inp-month" onchange="checkAge()">
+            <option value="">Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+          <select id="inp-year" onchange="checkAge()">
+            <option value="">Year</option>
+          </select>
+        </div>
+        <p class="field-err" id="err-dob">Please enter your full date of birth</p>
+      </div>
+      <div class="field">
+        <label for="inp-email">Your Email</label>
+        <input type="email" id="inp-email" placeholder="your@email.com" autocomplete="email"/>
+        <p class="field-err" id="err-email">Please enter a valid email address</p>
+      </div>
+      <div id="minor-lock">
+        <p>
+          🔒 You must be <strong>18 or older</strong>
+          to access the full destiny report.<br>
+          Your free reading is still available below.
+        </p>
+      </div>
+      <button type="submit" class="btn-submit" id="btn-submit">
+        Reveal My Destiny Archetype →
+      </button>
+    </form>
+    <div class="trust-row">
+      <div class="trust-item"><span>🔒</span> Secure & Private</div>
+      <div class="trust-item"><span>✦</span> Free Reading</div>
+      <div class="trust-item"><span>☯</span> Est. 2024</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const dayEl=document.getElementById('inp-day');
+  const yearEl=document.getElementById('inp-year');
+  for(let d=1;d<=31;d++){
+    const o=document.createElement('option');
+    o.value=d; o.textContent=d;
+    dayEl.appendChild(o);
+  }
+  const thisYear=new Date().getFullYear();
+  for(let y=thisYear;y>=1920;y--){
+    const o=document.createElement('option');
+    o.value=y; o.textContent=y;
+    yearEl.appendChild(o);
+  }
+})();
+
+let selectedGender='';
+function selectGender(g){
+  selectedGender=g;
+  document.getElementById('btn-female').classList.toggle('active',g==='female');
+  document.getElementById('btn-male').classList.toggle('active',g==='male');
+  document.getElementById('err-gender').style.display='none';
+}
+
+function checkAge(){
+  const d=parseInt(document.getElementById('inp-day').value);
+  const m=parseInt(document.getElementById('inp-month').value);
+  const y=parseInt(document.getElementById('inp-year').value);
+  if(!d||!m||!y) return true;
+  const dob=new Date(y,m-1,d);
+  const today=new Date();
+  let age=today.getFullYear()-dob.getFullYear();
+  const mDiff=today.getMonth()-dob.getMonth();
+  if(mDiff<0||(mDiff===0&&today.getDate()<dob.getDate())) age--;
+  const isMinor=age<18;
+  document.getElementById('minor-lock').style.display=isMinor?'block':'none';
+  document.getElementById('btn-submit').disabled=isMinor;
+  return !isMinor;
+}
+
+// V2.0 标准紫微斗数6大命格
+const ARCHETYPES=[
+  {
+    id:'lonestar',
+    name:'The Lone Star Emperor',
+    chinese:'紫',
+    element:'Water · Ren',
+    theme:'Leadership · Solitude · Destiny',
+    desc:'You are not an ordinary person. Zi Wei star in your birth chart gives you a natural imperial aura. Your presence itself is a kind of pressure—not because you are domineering, but because you see too much.',
+    color:'#F59E0B'
+  },
+  {
+    id:'celestial',
+    name:'The Celestial Messenger',
+    chinese:'机',
+    element:'Water · Gui',
+    theme:'Wisdom · Intuition · Prophecy',
+    desc:'Your brain never truly rests. Tian Ji star governs wisdom. You are the prophet of this era. You see connections others cannot see and perceive changes others cannot feel.',
+    color:'#8B5CF6'
+  },
+  {
+    id:'sun',
+    name:'The Sun Blaze',
+    chinese:'日',
+    element:'Fire · Bing',
+    theme:'Light · Generosity · Influence',
+    desc:'When you walk into a room, the energy changes. Sun star destiny makes you a natural light source. People are drawn to you, sometimes even you don\'t understand why.',
+    color:'#EF4444'
+  },
+  {
+    id:'martial',
+    name:'The Martial General',
+    chinese:'武',
+    element:'Earth · Wu',
+    theme:'Willpower · Wealth · Reliability',
+    desc:'You are the kind of person who does what they say. Wu Qu star governs wealth and will. You don\'t need others\' approval—you only need results.',
+    color:'#10B981'
+  },
+  {
+    id:'integrity',
+    name:'The Integrity Breaker',
+    chinese:'廉',
+    element:'Metal · Geng',
+    theme:'Transformation · Rebellion · Evolution',
+    desc:'You were not born for a mediocre life. Lian Zhen star carries the power of destruction and reconstruction. You are not rebellious—you are evolution.',
+    color:'#6B7280'
+  },
+  {
+    id:'moon',
+    name:'The Moon Weaver',
+    chinese:'同',
+    element:'Fire · Ding',
+    theme:'Empathy · Beauty · Spirituality',
+    desc:'You feel the world more deeply than anyone else. Tian Tong star makes you a soul wanderer. You don\'t belong anywhere, but you can find beauty anywhere.',
+    color:'#93C5FD'
+  }
+];
+
+function calcArchetype(day,month,year){
+  const sum=String(day+month+year).split('').reduce((a,c)=>a+parseInt(c),0);
+  let n=sum;
+  while(n>6){n=String(n).split('').reduce((a,c)=>a+parseInt(c),0);}
+  if(n===0)n=6;
+  return ARCHETYPES[n-1];
+}
+
+function calcChineseZodiac(year){
+  const animals=['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+  return animals[(year-4)%12];
+}
+
+function calcElement(year){
+  const elements=['Wood','Fire','Earth','Metal','Water'];
+  return elements[Math.floor(((year-4)%10)/2)];
+}
+
+document.getElementById('mo-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  let valid=true;
+  
+  const name=document.getElementById('inp-name').value.trim();
+  const errName=document.getElementById('err-name');
+  if(!name){errName.style.display='block';valid=false;}
+  else{errName.style.display='none';}
+  
+  const errGender=document.getElementById('err-gender');
+  if(!selectedGender){errGender.style.display='block';valid=false;}
+  else{errGender.style.display='none';}
+  
+  const day=parseInt(document.getElementById('inp-day').value);
+  const month=parseInt(document.getElementById('inp-month').value);
+  const year=parseInt(document.getElementById('inp-year').value);
+  const errDob=document.getElementById('err-dob');
+  if(!day||!month||!year){errDob.style.display='block';valid=false;}
+  else{errDob.style.display='none';}
+  
+  const email=document.getElementById('inp-email').value.trim();
+  const errEmail=document.getElementById('err-email');
+  const emailRx=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRx.test(email)){errEmail.style.display='block';valid=false;}
+  else{errEmail.style.display='none';}
+  
+  if(valid&&!checkAge()){return;}
+  if(!valid)return;
+  
+  const archetype=calcArchetype(day,month,year);
+  const zodiac=calcChineseZodiac(year);
+  const element=calcElement(year);
+  
+  const userData={
+    name,
+    gender:selectedGender,
+    dob:{day,month,year},
+    email,
+    archetype:archetype.id,
+    archetypeName:archetype.name,
+    archetypeChinese:archetype.chinese,
+    archetypeElement:archetype.element,
+    archetypeTheme:archetype.theme,
+    archetypeDesc:archetype.desc,
+    archetypeColor:archetype.color,
+    zodiac,
+    element,
+    ts:Date.now()
+  };
+  
+  localStorage.setItem('moUser',JSON.stringify(userData));
+  
+  const btn=document.getElementById('btn-submit');
+  btn.textContent='Calculating your destiny…';
+  btn.disabled=true;
+  
+  setTimeout(function(){
+    window.location.href='part3.html';
+  },1200);
+});
+
+window.addEventListener('DOMContentLoaded',function(){
+  if(localStorage.getItem('moAgreed')!=='true'){
+    window.location.href='index.html';
+    return;
+  }
+  setTimeout(function(){
+    document.getElementById('progress-fill').style.width='25%';
+  },300);
+});
+</script>
+</body>
+</html>
